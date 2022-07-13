@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v3.2（20220707）"
-version_log="迁移仓库，删除部分脚本（变成杰哥的样纸），并由这个色皮头子继续misakatools的更新"
+version="v3.3（20220713）"
+version_log="增加swap脚本"
 
 RED="\033[31m"
 GREEN="\033[32m"
@@ -370,6 +370,7 @@ menu1(){
     echo -e " ${GREEN}11.${PLAIN} 修改Linux系统软件源"
     echo -e " ${GREEN}12.${PLAIN} 切换系统语言为中文"
     echo -e " ${GREEN}13.${PLAIN} OpenVZ VPS启用TUN模块"
+    echo -e " ${GREEN}14.${PLAIN} swap添加"
     echo " -------------"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
@@ -388,6 +389,7 @@ menu1(){
         11) bash <(curl -sSL https://cdn.jsdelivr.net/gh/SuperManito/LinuxMirrors@main/ChangeMirrors.sh) ;;
         12) setChinese ;;
         13) wget -N --no-check-certificate https://raw.githubusercontent.com/Misaka-blog/tun-script/master/tun.sh && bash tun.sh ;;
+	14) wget https://www.moerats.com/usr/shell/swap.sh && bash swap.sh ;;
         *) exit 1 ;;
     esac
 }
