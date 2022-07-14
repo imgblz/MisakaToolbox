@@ -11,12 +11,14 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaTo
 
 想要工具箱添加新的功能？直接提lssues
 
-## 来自姐姐大人的更新日志
+## 更新日志
 
-Ver 3.3（20220713） 增加swap脚本
+Ver 3.4（20220714） 加了一堆东东
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+    
+Ver 3.4（20220714） 加了一堆东东
     
 Ver 3.3（20220713） 增加swap脚本
   
@@ -73,7 +75,6 @@ DD系统：https://www.cxthhhhh.com/network-reinstall-system-modify
 更换系统语言：https://github.com/johnrosen1/vpstoolbox
 </details>  
 
-## 赞助是不需要的
 
 ## 感谢Misaka no的开发
 
