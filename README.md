@@ -13,10 +13,12 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaTo
 
 ## 更新日志
 
-Ver 3.4（20220714） 加了一堆东东
+Ver 3.5（20220715） 优化脚本，防止回到主菜单需要漫长的等待检查，防止输错序号导致强制退出脚本
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+    
+Ver 3.5（20220715） 优化脚本，防止回到主菜单需要漫长的等待检查，防止输错序号导致强制退出脚本
     
 Ver 3.4（20220714） 加了一堆东东
     
