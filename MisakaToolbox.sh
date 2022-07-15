@@ -358,7 +358,8 @@ menux(){
     echo -e " ${GREEN}4.${PLAIN} 性能测试"
     echo -e " ${GREEN}5.${PLAIN} VPS探针"
     echo -e " ${GREEN}6.${PLAIN} 一键更换（dd）系统"
-    echo -e " ${RED}0.${PLAIN} 回到欢迎页"
+    echo -e " ${RED}9.${PLAIN} 回到欢迎页"
+    echo -e " ${RED}0.${PLAIN} 退出"
     echo ""
     echo -e "${YELLOW}版本号${PLAIN}：$version"
     echo ""
@@ -370,7 +371,8 @@ menux(){
         4) menu4 ;;
         5) menu5 ;;
         6) menu6 ;;
-        0) menu ;;
+        9) menu ;;
+	0) exit 1 ;;
         *) menux ;;
     esac
 }
