@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v3.4（20220714）"
-version_log="加了一堆东西"
+version="v3.5（20220715）"
+version_log="优化脚本，防止回到主菜单需要漫长的等待检查，防止输错序号导致强制退出脚本"
 
 RED="\033[31m"
 GREEN="\033[32m"
@@ -40,19 +40,19 @@ for ((int = 0; int < ${#REGEX[@]}; int++)); do
 done
 
 [[ $EUID -ne 0 ]] && red "注意：请在root用户下运行脚本" && exit 1
-[[ -z $SYSTEM ]] && red "不支持VPS的当前系统，请使用主流操作系统" && exit 1
+[[ -z $SYSTEM ]] && red "看不透你的主机系统，能用点咱用的多的不" && exit 1
 
 check_status(){
-    yellow "正在检查VPS系统状态..."
+    yellow "等下！让杰哥检查下你的vps，莫要着急..."
     if [[ -z $(type -P curl) ]]; then
-        yellow "检测curl未安装，正在安装中..."
+        yellow "安装curl中（必备组件）..."
         if [[ ! $SYSTEM == "CentOS" ]]; then
             ${PACKAGE_UPDATE[int]}
         fi
         ${PACKAGE_INSTALL[int]} curl
     fi
     if [[ -z $(type -P sudo) ]]; then
-        yellow "检测sudo未安装，正在安装中..."
+        yellow "安装sudo中（必备组件）..."
         if [[ ! $SYSTEM == "CentOS" ]]; then
             ${PACKAGE_UPDATE[int]}
         fi
@@ -74,22 +74,22 @@ check_status(){
     fi
 
     if [[ $IPv4Status == "off" ]]; then
-        w4="${RED}未启用WARP${PLAIN}"
+        w4="${RED}未使用WARP${PLAIN}"
     fi
     if [[ $IPv6Status == "off" ]]; then
-        w6="${RED}未启用WARP${PLAIN}"
+        w6="${RED}未使用WARP${PLAIN}"
     fi
     if [[ $IPv4Status == "on" ]]; then
-        w4="${YELLOW}WARP 免费账户${PLAIN}"
+        w4="${YELLOW}WARP free账户${PLAIN}"
     fi
     if [[ $IPv6Status == "on" ]]; then
-        w6="${YELLOW}WARP 免费账户${PLAIN}"
+        w6="${YELLOW}WARP free账户${PLAIN}"
     fi
     if [[ $IPv4Status == "plus" ]]; then
-        w4="${GREEN}WARP+ / Teams${PLAIN}"
+        w4="${GREEN}WARP+ 或 Teams账户${PLAIN}"
     fi
     if [[ $IPv6Status == "plus" ]]; then
-        w6="${GREEN}WARP+ / Teams${PLAIN}"
+        w6="${GREEN}WARP+ 或 Teams账户${PLAIN}"
     fi
 
     # VPSIP变量说明：0为纯IPv6 VPS、1为纯IPv4 VPS、2为原生双栈VPS
@@ -161,7 +161,7 @@ bbr_script(){
         wget -N --no-check-certificate "https://raw.githubusercontents.com/chiakge/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
     elif [[ ${virt} == "openvz" ]]; then
         if [[ ! $TUN =~ 'in bad state' ]] && [[ ! $TUN =~ '处于错误状态' ]] && [[ ! $TUN =~ 'Die Dateizugriffsnummer ist in schlechter Verfassung' ]]; then
-            wget -N --no-check-certificate https://github.com/mzz2017/lkl-haproxy/raw/master/lkl-haproxy-centos-nocheckvirt.sh && bash lkl-haproxy-centos-nocheckvirt.sh
+            wget -N --no-check-certificate https://raw.githubusercontents.com/mzz2017/lkl-haproxy/master/lkl-haproxy.sh && bash lkl-haproxy.sh
         else
             wget -N --no-check-certificate https://raw.githubusercontents.com/mzz2017/lkl-haproxy/master/lkl-haproxy.sh && bash lkl-haproxy.sh
         fi
@@ -185,21 +185,20 @@ v6_dns64(){
 
 warp_script(){
     green "请选择你接下来使用的脚本"
-    echo "1. Misaka-WARP（已删除，仅为纪念）"
-    echo "2. fscarmen"
-    echo "3. fscarmen-docker"
-    echo "4. fscarmen warp解锁奈飞流媒体脚本"
-    echo "5. P3TERX"
+    echo "1. fscarmen"
+    echo "2. fscarmen-docker"
+    echo "3. fscarmen warp解锁奈飞流媒体脚本"
+    echo "4. P3TERX"
     echo "0. 返回主菜单"
     echo ""
     read -rp "请输入选项:" warpNumberInput
 	case $warpNumberInput in
-        1) menu ;;
-        2) wget -N https://raw.githubusercontents.com/fscarmen/warp/main/menu.sh && bash menu.sh ;;
-        3) wget -N https://raw.githubusercontents.com/fscarmen/warp/main/docker.sh && bash docker.sh ;;
-        4) bash <(curl -sSL https://raw.githubusercontents.com/fscarmen/warp_unlock/main/unlock.sh) ;;
-        5) bash <(curl -fsSL https://raw.githubusercontents.com/P3TERX/warp.sh/main/warp.sh) menu ;;
-        0) menu ;;
+        1) wget -N https://raw.githubusercontents.com/fscarmen/warp/main/menu.sh && bash menu.sh ;;
+        2) wget -N https://raw.githubusercontents.com/fscarmen/warp/main/docker.sh && bash docker.sh ;;
+        3) bash <(curl -sSL https://raw.githubusercontents.com/fscarmen/warp_unlock/main/unlock.sh) ;;
+        4) bash <(curl -fsSL https://raw.githubusercontents.com/P3TERX/warp.sh/main/warp.sh) menu ;;
+        0) menux ;;
+        *) warp_script ;;
     esac
 }
 
@@ -258,15 +257,14 @@ xui() {
     echo "                            "
     green "请选择你接下来使用的X-ui面板版本"
     echo "1. 使用X-ui官方原版"
-    echo "2. 使用Misaka魔改版（已删除，仅为纪念）"
-    echo "3. 使用FranzKafkaYu魔改版"
+    echo "2. 使用FranzKafkaYu魔改版"
     echo "0. 返回主菜单"
     read -rp "请输入选项:" xuiNumberInput
     case "$xuiNumberInput" in
         1) bash <(curl -Ls https://raw.githubusercontents.com/vaxilu/x-ui/master/install.sh) ;;
-        2) menu ;;
-        3) bash <(curl -Ls https://raw.githubusercontents.com/FranzKafkaYu/x-ui/master/install.sh) ;;
-        0) menu ;;
+        2) bash <(curl -Ls https://raw.githubusercontents.com/FranzKafkaYu/x-ui/master/install.sh) ;;
+        0) menx ;;
+        *) xui ;;
     esac
 }
 
@@ -304,11 +302,45 @@ serverstatus() {
         1) bash status.sh s ;;
         2) bash status.sh c ;;
         0) menu ;;
+        *) serverstatus ;;
     esac
 }
 
 menu(){
     check_status
+    clear
+    echo "#感谢使用 MisakaToolbox 复活版#"
+    echo ""
+    echo -e "${YELLOW}当前版本${PLAIN}：$version"
+    echo -e "${YELLOW}更新日志${PLAIN}：$version_log"
+    echo ""
+    echo -e " ${GREEN}1.${PLAIN} 进入脚本"
+    echo -e " ${GREEN}2.${PLAIN} 更新脚本"
+    echo -e " ${RED}0.${PLAIN} Exit"
+    echo ""
+    if [[ -n $v4 ]]; then
+        echo -e "IPv4 地址：$v4  地区：$c4  WARP状态：$w4"
+    fi
+    if [[ -n $v6 ]]; then
+        echo -e "IPv6 地址：$v6  地区：$c6  WARP状态：$w6"
+    fi
+    if [[ -n $w5p ]]; then
+        echo -e "WireProxy代理端口: 127.0.0.1:$w5p  WireProxy状态: $w5"
+        if [[ -n $w5i ]]; then
+            echo -e "WireProxy IP: $w5i  地区: $w5c"
+        fi
+    fi
+    echo ""
+    read -rp " 输入序号:" menuInput
+    case $menuInput in
+        1) menux ;;
+        2) wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh ;;
+        0) exit 1 ;;
+        *) menu ;;
+    esac
+}
+
+menux(){
     clear
     echo "#############################################################"
     echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}              #"
@@ -325,26 +357,10 @@ menu(){
     echo -e " ${GREEN}3.${PLAIN} 节点相关"
     echo -e " ${GREEN}4.${PLAIN} 性能测试"
     echo -e " ${GREEN}5.${PLAIN} VPS探针"
-    echo -e " ${GREEN}9.${PLAIN} 一键更换系统"
-    echo " -------------"
-    echo -e " ${GREEN}10.${PLAIN} 更新MisakaTools脚本"
-    echo -e " ${GREEN}0.${PLAIN} 退出脚本"
+    echo -e " ${GREEN}6.${PLAIN} 一键更换（dd）系统"
+    echo -e " ${RED}0.${PLAIN} 回到欢迎页"
     echo ""
-    echo -e "${YELLOW}当前版本${PLAIN}：$version"
-    echo -e "${YELLOW}更新日志${PLAIN}：$version_log"
-    echo ""
-    if [[ -n $v4 ]]; then
-        echo -e "IPv4 地址：$v4  地区：$c4  WARP状态：$w4"
-    fi
-    if [[ -n $v6 ]]; then
-        echo -e "IPv6 地址：$v6  地区：$c6  WARP状态：$w6"
-    fi
-    if [[ -n $w5p ]]; then
-        echo -e "WireProxy代理端口: 127.0.0.1:$w5p  WireProxy状态: $w5"
-        if [[ -n $w5i ]]; then
-            echo -e "WireProxy IP: $w5i  地区: $w5c"
-        fi
-    fi
+    echo -e "${YELLOW}版本号${PLAIN}：$version"
     echo ""
     read -rp " 请输入选项 [0-9]:" menuInput
     case $menuInput in
@@ -353,9 +369,9 @@ menu(){
         3) menu3 ;;
         4) menu4 ;;
         5) menu5 ;;
-        9) menu9 ;;
-        10) wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh ;;
-        *) exit 1 ;;
+        6) menu6 ;;
+        0) menu ;;
+        *) menux ;;
     esac
 }
 
@@ -379,6 +395,7 @@ menu1(){
     echo -e " ${GREEN}7.${PLAIN} 切换系统语言为中文"
     echo -e " ${GREEN}8.${PLAIN} 添加swap"
     echo -e " ${GREEN}9.${PLAIN} vpstoolbox（全自动化解放双手）"
+    echo -e " ${GREEN}10.${PLAIN} vps改root登陆"
     echo " -------------"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
@@ -393,7 +410,9 @@ menu1(){
         7) setChinese ;;
     	8) wget https://www.moerats.com/usr/shell/swap.sh && bash swap.sh ;;
         9) tools ;;
-        *) exit 1 ;;
+        10) wget https://raw.githubusercontents.com/imgblz/vpsroot/main/root.sh && bash root.sh ;;
+        0) menux ;;
+        *) menu1 ;;
     esac
 }
 
@@ -433,8 +452,8 @@ menu2(){
         8) bt ;;
         9) wget http://dl.amh.sh/amh.sh && bash amh.sh ;;
         10) wget http://kangle.cccyun.cn/start;sh start ;;
-        0) menu ;;
-        *) exit 1 ;;
+        0) menux ;;
+        *) menu2 ;;
     esac
 }
 
@@ -468,8 +487,8 @@ menu3(){
         5) wget -N --no-check-certificate https://raw.githubusercontents.com/imgblz/Xray-script-master/master/xray.sh && bash xray.sh ;;
         6) wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontents.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh && chmod +x shadowsocks-all.sh && ./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log ;;
         7) mkdir /home/mtproxy && cd /home/mtproxy && curl -s -o mtproxy.sh https://raw.githubusercontents.com/sunpma/mtp/master/mtproxy.sh && chmod +x mtproxy.sh && bash mtproxy.sh && bash mtproxy.sh start ;;
-        0) menu ;;
-        *) exit 1 ;;
+        0) menux ;;
+        *) menu3 ;;
     esac
 }
 
@@ -484,27 +503,25 @@ menu4(){
     echo -e "# ${GREEN}关于${PLAIN}: Misaka已经不再更新，抄下来（自用罢了）       #"
     echo "#############################################################"
     echo ""
-    echo -e " ${GREEN}1.${PLAIN} VPS测试 (misakabench)已删除仅为纪念"
-    echo -e " ${GREEN}2.${PLAIN} VPS测试 (bench.sh)"
-    echo -e " ${GREEN}3.${PLAIN} VPS测试 (superbench)"
-    echo -e " ${GREEN}4.${PLAIN} VPS测试 (lemonbench)"
-    echo -e " ${GREEN}5.${PLAIN} VPS测试 (融合怪全测)"
-    echo -e " ${GREEN}6.${PLAIN} 流媒体检测"
-    echo -e " ${GREEN}7.${PLAIN} 三网测速"
+    echo -e " ${GREEN}1.${PLAIN} VPS测试 (bench.sh)"
+    echo -e " ${GREEN}2.${PLAIN} VPS测试 (superbench)"
+    echo -e " ${GREEN}3.${PLAIN} VPS测试 (lemonbench)"
+    echo -e " ${GREEN}4.${PLAIN} VPS测试 (融合怪全测)"
+    echo -e " ${GREEN}5.${PLAIN} 流媒体检测"
+    echo -e " ${GREEN}6.${PLAIN} 三网测速"
     echo " -------------"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
     read -rp " 请输入选项 [0-7]:" menuInput
     case $menuInput in
-        1) menu ;;
-        2) wget -qO- bench.sh | bash ;;
-        3) wget -qO- --no-check-certificate https://raw.githubusercontents.com/oooldking/script/master/superbench.sh | bash ;;
-        4) curl -fsL https://ilemonra.in/LemonBenchIntl | bash -s fast ;;
-        5) bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh) ;;
-        6) bash <(curl -L -s https://raw.githubusercontents.com/lmc999/RegionRestrictionCheck/main/check.sh) ;;
-        7) bash <(curl -Lso- https://git.io/superspeed.sh) ;;
-        0) menu ;;
-        *) exit 1 ;;
+        1) wget -qO- bench.sh | bash ;;
+        2) wget -qO- --no-check-certificate https://raw.githubusercontents.com/oooldking/script/master/superbench.sh | bash ;;
+        3) curl -fsL https://ilemonra.in/LemonBenchIntl | bash -s fast ;;
+        4) bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh) ;;
+        5) bash <(curl -L -s https://raw.githubusercontents.com/lmc999/RegionRestrictionCheck/main/check.sh) ;;
+        6) bash <(curl -Lso- https://git.io/superspeed.sh) ;;
+        0) menux ;;
+        *) menu4 ;;
     esac
 }
 
@@ -526,12 +543,12 @@ menu5(){
     read -rp " 请输入选项 [0-2]:" menuInput
     case $menuInput in
         1) curl -L https://raw.githubusercontents.com/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && bash nezha.sh ;;
-        0) menu ;;
-        *) exit 1 ;;
+        0) menux ;;
+        *) menu5 ;;
     esac
 }
 
-menu9(){
+menu6(){
     clear
     echo "#############################################################"
     echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}              #"
@@ -550,7 +567,8 @@ menu9(){
     case $menuInput in
         1) curl -fLO https://raw.githubusercontent.com/bohanyang/debi/master/debi.sh && chmod a+rx debi.sh && sudo ./debi.sh --cdn --network-console --ethx --bbr --user root --password useradmin && sudo shutdown -r now ;;
         2) wget --no-check-certificate -qO ~/Network-Reinstall-System-Modify.sh 'https://www.cxthhhhh.com/CXT-Library/Network-Reinstall-System-Modify/Network-Reinstall-System-Modify.sh' && chmod a+x ~/Network-Reinstall-System-Modify.sh && bash ~/Network-Reinstall-System-Modify.sh -UI_Options ;;
-        *) exit 1 ;;
+        0) menux ;;
+        *) menu6 ;;
     esac
 }
 
