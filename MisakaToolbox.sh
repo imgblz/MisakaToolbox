@@ -349,11 +349,10 @@ menuz(){
         fi
     fi
     echo ""
-    read -rp " 输入序号:" menuInput
+    read -rp " 请输入:" menuInput
     case $menuInput in
-        1) menux ;;
         0) exit 1 ;;
-        *) menuz ;;
+        *) menux ;;
     esac
 }
 
