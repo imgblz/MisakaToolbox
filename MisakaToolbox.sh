@@ -322,13 +322,13 @@ menu() {
 menuz(){
     check_status
     clear
-    echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo "#####################################################"
+    echo -e "#         ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
     echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
     echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
     echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
     echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
-    echo "#############################################################"
+    echo "#####################################################"
     echo ""
     echo -e "${YELLOW}当前版本${PLAIN}：$version"
     echo -e "${YELLOW}更新日志${PLAIN}：$version_log"
@@ -359,13 +359,13 @@ menuz(){
 
 menux(){
     clear
-    echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo "#####################################################"
+    echo -e "#         ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
     echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
     echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
     echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
     echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
-    echo "#############################################################"
+    echo "#####################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 系统相关"
     echo -e " ${GREEN}2.${PLAIN} 面板相关"
@@ -394,13 +394,13 @@ menux(){
 
 menu1(){
     clear
-    echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo "#####################################################"
+    echo -e "#         ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
     echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
     echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
     echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
     echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
-    echo "#############################################################"
+    echo "#####################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 开放系统防火墙端口"
     echo -e " ${GREEN}2.${PLAIN} BBR加速系列脚本"
@@ -434,13 +434,13 @@ menu1(){
 
 menu2(){
     clear
-    echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo "#####################################################"
+    echo -e "#         ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
     echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
     echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
     echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
     echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
-    echo "#############################################################"
+    echo "#####################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} aapanel面板"
     echo -e " ${GREEN}2.${PLAIN} x-ui面板"
@@ -480,13 +480,13 @@ menu2(){
 
 menu3(){
     clear
-    echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo "#####################################################"
+    echo -e "#         ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
     echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
     echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
     echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
     echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
-    echo "#############################################################"
+    echo "#####################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} mack-a"
     echo -e " ${GREEN}2.${PLAIN} wulabing v2ray"
@@ -518,13 +518,13 @@ menu3(){
 
 menu4(){
     clear
-    echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo "#####################################################"
+    echo -e "#         ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
     echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
     echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
     echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
     echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
-    echo "#############################################################"
+    echo "#####################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} VPS测试 (bench.sh)"
     echo -e " ${GREEN}2.${PLAIN} VPS测试 (superbench)"
@@ -550,13 +550,13 @@ menu4(){
 
 menu5(){
     clear
-    echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo "#####################################################"
+    echo -e "#         ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
     echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
     echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
     echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
     echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
-    echo "#############################################################"
+    echo "#####################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 哪吒面板"
     echo " -------------"
@@ -572,13 +572,13 @@ menu5(){
 
 menu6(){
     clear
-    echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo "#####################################################"
+    echo -e "#         ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
     echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
     echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
     echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
     echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
-    echo "#############################################################"
+    echo "#####################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 一键Debian（支持ARM）密码useradmin"
     echo -e " ${GREEN}2.${PLAIN} 一键dd脚本魔改版（cxthhhhh）"
