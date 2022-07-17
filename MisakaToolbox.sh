@@ -334,7 +334,7 @@ menuz(){
     echo -e "${YELLOW}更新日志${PLAIN}：$version_log"
     echo ""
     echo -e " ${GREEN}按任意键进入脚本${PLAIN} "
-    echo "按 0 即 可 退 出 脚 本"
+    echo "按 0 即可退出脚本"
     echo ""
     if [[ -n $v4 ]]; then
         echo -e "IPv4 地址：$v4  地区：$c4  WARP状态：$w4"
