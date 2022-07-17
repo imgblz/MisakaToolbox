@@ -1,7 +1,8 @@
 #!/bin/bash
 
-version="v3.5（20220715）"
-version_log="优化脚本，防止回到主菜单需要漫长的等待检查，防止输错序号导致强制退出脚本"
+version="v3.6（20220717）"
+version_log="添加wireguard和mdserver两个好用的项目,引入自动更新"
+
 
 RED="\033[31m"
 GREEN="\033[32m"
@@ -202,6 +203,7 @@ warp_script(){
     esac
 }
 
+
 setChinese(){
     chattr -i /etc/locale.gen
     cat > '/etc/locale.gen' << EOF
@@ -306,17 +308,33 @@ serverstatus() {
     esac
 }
 
-menu(){
+menu() {
+    echo "检查更新..."
+    wget -q -O /tmp/version.txt https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/version.txt
+    if [ "$(cat /tmp/version.txt)" != "$version" ]; then
+        echo "发现新版本，正在更新..."
+        wget -N --no-check-certificate https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh
+    else
+        menuz
+    fi
+}
+
+menuz(){
     check_status
     clear
-    echo "#感谢使用 MisakaToolbox 复活版#"
+    echo "#############################################################"
+    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
+    echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
+    echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
+    echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
+    echo "#############################################################"
     echo ""
     echo -e "${YELLOW}当前版本${PLAIN}：$version"
     echo -e "${YELLOW}更新日志${PLAIN}：$version_log"
     echo ""
-    echo -e " ${GREEN}1.${PLAIN} 进入脚本"
-    echo -e " ${GREEN}2.${PLAIN} 更新脚本"
-    echo -e " ${RED}0.${PLAIN} Exit"
+    echo -e " ${GREEN}按任意键进入脚本${PLAIN} "
+    echo "按 0 即 可 退 出 脚 本"
     echo ""
     if [[ -n $v4 ]]; then
         echo -e "IPv4 地址：$v4  地区：$c4  WARP状态：$w4"
@@ -334,22 +352,19 @@ menu(){
     read -rp " 输入序号:" menuInput
     case $menuInput in
         1) menux ;;
-        2) wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh ;;
         0) exit 1 ;;
-        *) menu ;;
+        *) menuz ;;
     esac
 }
 
 menux(){
     clear
     echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}              #"
-    echo -e "# ${GREEN}原作者${PLAIN}: Misaka No                                #"
-    echo -e "# ${GREEN}复活版更新人？${PLAIN}: 阿杰                              #"
-    echo -e "# ${GREEN}原博客${PLAIN}: https://owo.misaka.rest                  #"
-    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                 #"
-    echo -e "# ${GREEN}关于${PLAIN}: Misaka已经不再更新，抄下来（自用罢了）       #"
-    echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net             #"
+    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
+    echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
+    echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
+    echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
     echo "#############################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 系统相关"
@@ -371,8 +386,8 @@ menux(){
         4) menu4 ;;
         5) menu5 ;;
         6) menu6 ;;
-        9) menu ;;
-	0) exit 1 ;;
+        9) menuz ;;
+	    0) exit 1 ;;
         *) menux ;;
     esac
 }
@@ -380,12 +395,11 @@ menux(){
 menu1(){
     clear
     echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}              #"
-    echo -e "# ${GREEN}原作者${PLAIN}: Misaka No                                #"
-    echo -e "# ${GREEN}复活版更新人？${PLAIN}: 阿杰                              #"
-    echo -e "# ${GREEN}原博客${PLAIN}: https://owo.misaka.rest                  #"
-    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                 #"
-    echo -e "# ${GREEN}关于${PLAIN}: Misaka已经不再更新，抄下来（自用罢了）       #"
+    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
+    echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
+    echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
+    echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
     echo "#############################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 开放系统防火墙端口"
@@ -421,24 +435,26 @@ menu1(){
 menu2(){
     clear
     echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}              #"
-    echo -e "# ${GREEN}原作者${PLAIN}: Misaka No                                #"
-    echo -e "# ${GREEN}复活版更新人？${PLAIN}: 阿杰                              #"
-    echo -e "# ${GREEN}原博客${PLAIN}: https://owo.misaka.rest                  #"
-    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                 #"
-    echo -e "# ${GREEN}关于${PLAIN}: Misaka已经不再更新，抄下来（自用罢了）       #"
+    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
+    echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
+    echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
+    echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
     echo "#############################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} aapanel面板"
     echo -e " ${GREEN}2.${PLAIN} x-ui面板"
     echo -e " ${GREEN}3.${PLAIN} aria2(面板为远程链接)"
     echo -e " ${GREEN}4.${PLAIN} CyberPanel面板"
-    echo -e " ${GREEN}5.${PLAIN} 青龙面板"
-    echo -e " ${GREEN}6.${PLAIN} 青龙面板一键依赖（需要默认容器名）"
-    echo -e " ${GREEN}7.${PLAIN} Trojan面板"
-    echo -e " ${GREEN}8.${PLAIN} 宝塔快乐版"
-    echo -e " ${GREEN}9.${PLAIN} AMH面板"
-    echo -e " ${GREEN}10.${PLAIN} kangle彩虹版(CentOS6/7/8)"
+    echo -e " ${GREEN}5.${PLAIN} 青龙面板（官方）"
+    echo -e " ${GREEN}6.${PLAIN} 青龙面板（傻瓜式带仓库）"
+    echo -e " ${GREEN}7.${PLAIN} 青龙面板一键依赖（需要默认容器名）"
+    echo -e " ${GREEN}8.${PLAIN} Trojan面板"
+    echo -e " ${GREEN}9.${PLAIN} 宝塔快乐版"
+    echo -e " ${GREEN}10.${PLAIN} AMH面板"
+    echo -e " ${GREEN}11.${PLAIN} kangle彩虹版(CentOS6/7/8)"
+    echo -e " ${GREEN}12.${PLAIN} mdserver(代替宝塔的新面板？)"
+    echo -e " ${GREEN}13.${PLAIN} NewPanel（lnmp环境）"
     echo " -------------"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
@@ -449,11 +465,14 @@ menu2(){
         3) ${PACKAGE_INSTALL[int]} ca-certificates && wget -N git.io/aria2.sh && chmod +x aria2.sh && bash aria2.sh ;;
         4) sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cyberpanel.net/install.sh) ;;
         5) qlpanel ;;
-        6) docker exec -it qinglong bash -c "$(curl -fsSL https://raw.githubusercontent.com/FlechazoPh/QLDependency/main/Shell/QLOneKeyDependency.sh | sh)" ;;
-        7) source <(curl -sL https://git.io/trojan-install) ;;
-        8) bt ;;
-        9) wget http://dl.amh.sh/amh.sh && bash amh.sh ;;
-        10) wget http://kangle.cccyun.cn/start;sh start ;;
+        6) wget https://raw.githubusercontents.com/shidahuilang/QL-/main/lang1.sh && bash lang1.sh ;;
+        7) docker exec -it qinglong bash -c "$(curl -fsSL https://raw.githubusercontents.com/FlechazoPh/QLDependency/main/Shell/QLOneKeyDependency.sh | sh)" ;;
+        8) source <(curl -sL https://git.io/trojan-install) ;;
+        9) bt ;;
+        10) wget http://dl.amh.sh/amh.sh && bash amh.sh ;;
+        11) wget http://kangle.cccyun.cn/start;sh start ;;
+        12) curl -fsSL  https://raw.githubusercontents.com/midoks/mdserver-web/master/scripts/install.sh | bash ;;
+        13) wget http://panel.ropon.top/panel/lnmp.tar.gz && tar xf lnmp.tar.gz && cd lnmp && ./install.sh ;;
         0) menux ;;
         *) menu2 ;;
     esac
@@ -462,21 +481,22 @@ menu2(){
 menu3(){
     clear
     echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}              #"
-    echo -e "# ${GREEN}原作者${PLAIN}: Misaka No                                #"
-    echo -e "# ${GREEN}复活版更新人？${PLAIN}: 阿杰                              #"
-    echo -e "# ${GREEN}原博客${PLAIN}: https://owo.misaka.rest                  #"
-    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                 #"
-    echo -e "# ${GREEN}关于${PLAIN}: Misaka已经不再更新，抄下来（自用罢了）       #"
+    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
+    echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
+    echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
+    echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
     echo "#############################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} mack-a"
     echo -e " ${GREEN}2.${PLAIN} wulabing v2ray"
-    echo -e " ${GREEN}3.${PLAIN} wulabing xray (Nginx前置)"
+    echo -e " ${GREEN}3.${PLAIN} wulabing xray (Nginx前置)推荐"
     echo -e " ${GREEN}4.${PLAIN} wulabing xray (Xray前置)"
     echo -e " ${GREEN}5.${PLAIN} misaka xray"
     echo -e " ${GREEN}6.${PLAIN} teddysun shadowsocks"
     echo -e " ${GREEN}7.${PLAIN} telegram mtproxy"
+    echo -e " ${GREEN}8.${PLAIN} WireGuard"
+    echo -e " ${GREEN}9.${PLAIN} 订阅转换一键安装"
     echo " -------------"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
@@ -489,6 +509,8 @@ menu3(){
         5) wget -N --no-check-certificate https://raw.githubusercontents.com/imgblz/Xray-script-master/master/xray.sh && bash xray.sh ;;
         6) wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontents.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh && chmod +x shadowsocks-all.sh && ./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log ;;
         7) mkdir /home/mtproxy && cd /home/mtproxy && curl -s -o mtproxy.sh https://raw.githubusercontents.com/sunpma/mtp/master/mtproxy.sh && chmod +x mtproxy.sh && bash mtproxy.sh && bash mtproxy.sh start ;;
+        8) wget https://git.io/wireguard -O wireguard-install.sh && bash wireguard-install.sh ;;
+        8) bash -c "$(curl -fsSL https://raw.githubusercontents.com/shidahuilang/SS-SSR-TG-iptables-bt/main/sh/clash_install.sh)" ;;
         0) menux ;;
         *) menu3 ;;
     esac
@@ -497,12 +519,11 @@ menu3(){
 menu4(){
     clear
     echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}              #"
-    echo -e "# ${GREEN}原作者${PLAIN}: Misaka No                                #"
-    echo -e "# ${GREEN}复活版更新人？${PLAIN}: 阿杰                              #"
-    echo -e "# ${GREEN}原博客${PLAIN}: https://owo.misaka.rest                  #"
-    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                 #"
-    echo -e "# ${GREEN}关于${PLAIN}: Misaka已经不再更新，抄下来（自用罢了）       #"
+    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
+    echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
+    echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
+    echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
     echo "#############################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} VPS测试 (bench.sh)"
@@ -530,12 +551,11 @@ menu4(){
 menu5(){
     clear
     echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}              #"
-    echo -e "# ${GREEN}原作者${PLAIN}: Misaka No                                #"
-    echo -e "# ${GREEN}复活版更新人？${PLAIN}: 阿杰                              #"
-    echo -e "# ${GREEN}原博客${PLAIN}: https://owo.misaka.rest                  #"
-    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                 #"
-    echo -e "# ${GREEN}关于${PLAIN}: Misaka已经不再更新，抄下来（自用罢了）       #"
+    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
+    echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
+    echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
+    echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
     echo "#############################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 哪吒面板"
@@ -553,12 +573,11 @@ menu5(){
 menu6(){
     clear
     echo "#############################################################"
-    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}              #"
-    echo -e "# ${GREEN}原作者${PLAIN}: Misaka No                                #"
-    echo -e "# ${GREEN}复活版更新人？${PLAIN}: 阿杰                              #"
-    echo -e "# ${GREEN}原博客${PLAIN}: https://owo.misaka.rest                  #"
-    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                 #"
-    echo -e "# ${GREEN}关于${PLAIN}: Misaka已经不再更新，抄下来（自用罢了）       #"
+    echo -e "#           ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
+    echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
+    echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
+    echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
     echo "#############################################################"
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 一键Debian（支持ARM）密码useradmin"
