@@ -14,12 +14,12 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaTo
 
 ## 更新日志
 
-Ver v3.6（20220717） 添加wireguard和mdserver两个好用的项目,引入自动更新
+Ver 3.6（20220717） 添加wireguard和mdserver两个好用的项目,引入自动更新
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
     
-Ver v3.6（20220717） 添加wireguard和mdserver两个好用的项目,引入自动更新
+Ver 3.6（20220717） 添加wireguard和mdserver两个好用的项目,引入自动更新
     
 Ver 3.5（20220715） 优化脚本，防止回到主菜单需要漫长的等待检查，防止输错序号导致强制退出脚本
     
