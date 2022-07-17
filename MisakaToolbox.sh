@@ -333,8 +333,7 @@ menuz(){
     echo -e "${YELLOW}当前版本${PLAIN}：$version"
     echo -e "${YELLOW}更新日志${PLAIN}：$version_log"
     echo ""
-    echo -e " ${GREEN}按任意键进入脚本${PLAIN} "
-    echo "按 0 即可退出脚本"
+    echo -e " ${GREEN}按回车进入脚本${PLAIN} "
     echo ""
     if [[ -n $v4 ]]; then
         echo -e "IPv4 地址：$v4  地区：$c4  WARP状态：$w4"
@@ -349,9 +348,8 @@ menuz(){
         fi
     fi
     echo ""
-    read -rp " 请输入:" menuInput
+    read -rp " 按下enter运行脚本:" menuInput
     case $menuInput in
-        0) exit 1 ;;
         *) menux ;;
     esac
 }
