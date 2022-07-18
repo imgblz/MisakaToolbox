@@ -363,8 +363,7 @@ menuz(){
 
 menux(){
     clear
-    about              #"
-    echo "#####################################################"
+    about
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 系统相关"
     echo -e " ${GREEN}2.${PLAIN} 面板相关"
