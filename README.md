@@ -14,10 +14,12 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaTo
 
 ## 更新日志
 
-Ver 3.7（20220718） 添加CCAA脚本
+Ver 3.8（20220718-2） 优化脚本大小
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+    
+Ver 3.8（20220718-2） 优化脚本大小
     
 Ver 3.7（20220718） 添加CCAA脚本
     
