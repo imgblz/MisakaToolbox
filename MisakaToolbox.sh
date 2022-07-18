@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version="v3.7（20220718-2）"
+version="v3.8（20220718-2）"
 version_log="优化脚本大小"
 
 
