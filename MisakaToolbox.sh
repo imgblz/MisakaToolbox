@@ -452,6 +452,7 @@ menu2(){
     echo -e " ${GREEN}11.${PLAIN} kangle彩虹版(CentOS6/7/8)"
     echo -e " ${GREEN}12.${PLAIN} mdserver(代替宝塔的新面板？)"
     echo -e " ${GREEN}13.${PLAIN} NewPanel（lnmp环境）"
+    echo -e " ${GREEN}14.${PLAIN} CCAA（Aria下载器）"
     echo " -------------"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
@@ -470,6 +471,7 @@ menu2(){
         11) wget http://kangle.cccyun.cn/start;sh start ;;
         12) curl -fsSL  https://raw.githubusercontents.com/midoks/mdserver-web/master/scripts/install.sh | bash ;;
         13) wget http://panel.ropon.top/panel/lnmp.tar.gz && tar xf lnmp.tar.gz && cd lnmp && ./install.sh ;;
+	14) bash <(curl -Lsk https://raw.githubusercontent.com/helloxz/ccaa/master/ccaa.sh) ;;
         0) menux ;;
         *) menu2 ;;
     esac
