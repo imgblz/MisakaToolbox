@@ -14,10 +14,12 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaTo
 
 ## 更新日志
 
-Ver 3.6（20220717） 添加wireguard和mdserver两个好用的项目,引入自动更新
+Ver 3.7（20220718） 添加CCAA脚本
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+    
+Ver 3.7（20220718） 添加CCAA脚本
     
 Ver 3.6（20220717） 添加wireguard和mdserver两个好用的项目,引入自动更新
     
