@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v3.6（20220717）"
-version_log="添加wireguard和mdserver两个好用的项目,引入自动更新"
+version="v3.7（20220718）"
+version_log="添加CCAA脚本"
 
 
 RED="\033[31m"
