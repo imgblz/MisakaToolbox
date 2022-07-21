@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v3.8（20220718-2）"
-version_log="优化脚本大小"
+version="v3.9(20220721)"
+version_log="改下逻辑，删了点没用的"
 
 
 RED="\033[31m"
@@ -41,7 +41,7 @@ for ((int = 0; int < ${#REGEX[@]}; int++)); do
 done
 
 [[ $EUID -ne 0 ]] && red "注意：请在root用户下运行脚本" && exit 1
-[[ -z $SYSTEM ]] && red "看不透你的主机系统，能用点咱用的多的不" && exit 1
+[[ -z $SYSTEM ]] && red "换个系统？俺这不兼容..." && exit 1
 
 about(){
     echo "#####################################################"
@@ -49,22 +49,20 @@ about(){
     echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
     echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
     echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
-    echo -e "# ${GREEN}原作者${PLAIN}：Misaka No                                 #"
     echo "#####################################################"
 }
 
-
 check_status(){
-    yellow "等下！让杰哥检查下你的vps，莫要着急..."
+    yellow "等下！你这vps就是逊了..."
     if [[ -z $(type -P curl) ]]; then
-        yellow "安装curl中（必备组件）..."
+        yellow "安装curl..."
         if [[ ! $SYSTEM == "CentOS" ]]; then
             ${PACKAGE_UPDATE[int]}
         fi
         ${PACKAGE_INSTALL[int]} curl
     fi
     if [[ -z $(type -P sudo) ]]; then
-        yellow "安装sudo中（必备组件）..."
+        yellow "安装sudo..."
         if [[ ! $SYSTEM == "CentOS" ]]; then
             ${PACKAGE_UPDATE[int]}
         fi
@@ -75,7 +73,6 @@ check_status(){
     IPv6Status=$(curl -s6m8 https://www.cloudflare.com/cdn-cgi/trace -k | grep warp | cut -d= -f2)
 
     if [[ $IPv4Status =~ "on"|"plus" ]] || [[ $IPv6Status =~ "on"|"plus" ]]; then
-        # 关闭Wgcf-WARP，以防识别有误
         wg-quick down wgcf >/dev/null 2>&1
         v66=`curl -s6m8 https://ip.gs -k`
         v44=`curl -s4m8 https://ip.gs -k`
@@ -104,7 +101,6 @@ check_status(){
         w6="${GREEN}WARP+ 或 Teams账户${PLAIN}"
     fi
 
-    # VPSIP变量说明：0为纯IPv6 VPS、1为纯IPv4 VPS、2为原生双栈VPS
     if [[ -n $v66 ]] && [[ -z $v44 ]]; then
         VPSIP=0
     elif [[ -z $v66 ]] && [[ -n $v44 ]]; then
@@ -165,6 +161,7 @@ open_ports(){
     netfilter-persistent save 2>/dev/null
     green "VPS的防火墙端口已放行！"
 }
+
 
 bbr_script(){
     virt=$(systemd-detect-virt)
@@ -327,7 +324,7 @@ menu() {
         echo "发现新版本，正在更新..."
         wget -N --no-check-certificate https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh
     else
-        echo "当前已经是最新版本 版本： $version"
+        echo "当前已经是最新版本 版本：$version"
         menuz
     fi
 }
@@ -340,13 +337,13 @@ menuz(){
     echo -e "${YELLOW}当前版本${PLAIN}：$version"
     echo -e "${YELLOW}更新日志${PLAIN}：$version_log"
     echo ""
-    echo -e " ${GREEN}按回车进入脚本${PLAIN} "
-    echo ""
     if [[ -n $v4 ]]; then
-        echo -e "IPv4 地址：$v4  地区：$c4  WARP状态：$w4"
+        echo -e "IPv4 地址：$v4"  
+        echo -e "地区：$c4  WARP状态：$w4"
     fi
     if [[ -n $v6 ]]; then
-        echo -e "IPv6 地址：$v6  地区：$c6  WARP状态：$w6"
+        echo -e "IPv6 地址：$v6 " 
+        echo -e "地区：$c6  WARP状态：$w6"
     fi
     if [[ -n $w5p ]]; then
         echo -e "WireProxy代理端口: 127.0.0.1:$w5p  WireProxy状态: $w5"
@@ -355,7 +352,7 @@ menuz(){
         fi
     fi
     echo ""
-    read -rp " 按下enter运行脚本:" menuInput
+    read -rp "---按下enter运行脚本---" menuInput
     case $menuInput in
         *) menux ;;
     esac
@@ -369,21 +366,19 @@ menux(){
     echo -e " ${GREEN}2.${PLAIN} 面板相关"
     echo -e " ${GREEN}3.${PLAIN} 节点相关"
     echo -e " ${GREEN}4.${PLAIN} 性能测试"
-    echo -e " ${GREEN}5.${PLAIN} VPS探针"
-    echo -e " ${GREEN}6.${PLAIN} 一键更换（dd）系统"
+    echo -e " ${GREEN}5.${PLAIN} 一键更换（dd）系统"
     echo -e " ${RED}9.${PLAIN} 回到欢迎页"
     echo -e " ${RED}0.${PLAIN} 退出"
     echo ""
     echo -e "${YELLOW}版本号${PLAIN}：$version"
     echo ""
-    read -rp " 请输入选项 [0-9]:" menuInput
+    read -rp " 请输入选项:" menuInput
     case $menuInput in
         1) menu1 ;;
         2) menu2 ;;
         3) menu3 ;;
         4) menu4 ;;
-        5) menu5 ;;
-        6) menu6 ;;
+        6) menu5 ;;
         9) menuz ;;
 	    0) exit 1 ;;
         *) menux ;;
@@ -394,7 +389,7 @@ menu1(){
     clear
     about
     echo ""
-    echo -e " ${GREEN}1.${PLAIN} 开放系统防火墙端口"
+    echo -e " ${GREEN}1.${PLAIN} 关闭系统防火墙端口"
     echo -e " ${GREEN}2.${PLAIN} BBR加速系列脚本"
     echo -e " ${GREEN}3.${PLAIN} 纯IPv6 VPS设置DNS64服务器"
     echo -e " ${GREEN}4.${PLAIN} 设置CloudFlare WARP"
@@ -407,7 +402,7 @@ menu1(){
     echo " -------------"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
-    read -rp " 请输入选项 [0-13]:" menuInput
+    read -rp " 请输入选项:" menuInput
     case $menuInput in
         1) open_ports ;;
         2) bbr_script ;;
@@ -428,41 +423,128 @@ menu2(){
     clear
     about
     echo ""
-    echo -e " ${GREEN}1.${PLAIN} aapanel面板"
-    echo -e " ${GREEN}2.${PLAIN} x-ui面板"
-    echo -e " ${GREEN}3.${PLAIN} aria2(面板为远程链接)"
-    echo -e " ${GREEN}4.${PLAIN} CyberPanel面板"
-    echo -e " ${GREEN}5.${PLAIN} 青龙面板（官方）"
-    echo -e " ${GREEN}6.${PLAIN} 青龙面板（傻瓜式带仓库）"
-    echo -e " ${GREEN}7.${PLAIN} 青龙面板一键依赖（需要默认容器名）"
-    echo -e " ${GREEN}8.${PLAIN} Trojan面板"
-    echo -e " ${GREEN}9.${PLAIN} 宝塔快乐版"
-    echo -e " ${GREEN}10.${PLAIN} AMH面板"
-    echo -e " ${GREEN}11.${PLAIN} kangle彩虹版(CentOS6/7/8)"
-    echo -e " ${GREEN}12.${PLAIN} mdserver(代替宝塔的新面板？)"
-    echo -e " ${GREEN}13.${PLAIN} NewPanel（lnmp环境）"
-    echo -e " ${GREEN}14.${PLAIN} CCAA（Aria下载器）"
+    echo -e " ${GREEN}1.${PLAIN} 服务器面板"
+    echo -e " ${GREEN}2.${PLAIN} 下载（aria2）面板"
+    echo -e " ${GREEN}3.${PLAIN} 青龙面板"
+    echo -e " ${GREEN}4.${PLAIN} 节点面板"
+    echo -e " ${GREEN}5.${PLAIN} 服务器探针"
     echo " -------------"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
-    read -rp " 请输入选项 [0-6]:" menuInput
+    read -rp " 请输入选项:" menuInput
     case $menuInput in
-        1) aapanel ;;
-        2) xui ;;
-        3) ${PACKAGE_INSTALL[int]} ca-certificates && wget -N git.io/aria2.sh && chmod +x aria2.sh && bash aria2.sh ;;
-        4) sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cyberpanel.net/install.sh) ;;
-        5) qlpanel ;;
-        6) wget https://raw.githubusercontents.com/shidahuilang/QL-/main/lang1.sh && bash lang1.sh ;;
-        7) docker exec -it qinglong bash -c "$(curl -fsSL https://raw.githubusercontents.com/FlechazoPh/QLDependency/main/Shell/QLOneKeyDependency.sh | sh)" ;;
-        8) source <(curl -sL https://git.io/trojan-install) ;;
-        9) bt ;;
-        10) wget http://dl.amh.sh/amh.sh && bash amh.sh ;;
-        11) wget http://kangle.cccyun.cn/start;sh start ;;
-        12) curl -fsSL  https://raw.githubusercontents.com/midoks/mdserver-web/master/scripts/install.sh | bash ;;
-        13) wget http://panel.ropon.top/panel/lnmp.tar.gz && tar xf lnmp.tar.gz && cd lnmp && ./install.sh ;;
-	14) bash <(curl -Lsk https://raw.githubusercontent.com/helloxz/ccaa/master/ccaa.sh) ;;
+        1) menu2a ;;
+        2) menu2b ;;
+        3) menu2c ;;
+        4) menu2d ;;
+        5) menu2e ;;
         0) menux ;;
         *) menu2 ;;
+    esac
+}
+
+menu2a(){
+    clear
+    about
+    echo ""
+    echo -e " ${GREEN}1.${PLAIN} aapanel面板"
+    echo -e " ${GREEN}2.${PLAIN} 宝塔快乐版"
+    echo -e " ${GREEN}3.${PLAIN} CyberPanel面板"
+    echo -e " ${GREEN}4.${PLAIN} AMH面板"
+    echo -e " ${GREEN}5.${PLAIN} kangle彩虹版(CentOS6/7/8)"
+    echo -e " ${GREEN}6.${PLAIN} mdserver(代替宝塔的新面板？)"
+    echo -e " ${GREEN}7.${PLAIN} NewPanel（lnmp环境）"
+    echo " -------------"
+    echo -e " ${GREEN}0.${PLAIN} 返回上一页"
+    echo ""
+    read -rp " 请输入选项:" menuInput
+    case $menuInput in
+        1) aapanel ;;
+        2) bt ;;
+        3) sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cyberpanel.net/install.sh) ;;
+        4) wget http://dl.amh.sh/amh.sh && bash amh.sh ;;
+        5) wget http://kangle.cccyun.cn/start;sh start ;;
+        6) curl -fsSL  https://raw.githubusercontents.com/midoks/mdserver-web/master/scripts/install.sh | bash ;;
+        7) wget http://panel.ropon.top/panel/lnmp.tar.gz && tar xf lnmp.tar.gz && cd lnmp && ./install.sh ;;
+        0) menu2 ;;
+        *) menu2a ;;
+    esac
+}
+
+menu2b(){
+    clear
+    about
+    echo ""
+    echo -e " ${GREEN}1.${PLAIN} CCAA（Aria下载器）"
+    echo -e " ${GREEN}2.${PLAIN} aria2(面板为远程链接)"
+    echo " -------------"
+    echo -e " ${GREEN}0.${PLAIN} 返回上一页"
+    echo ""
+    read -rp " 请输入选项:" menuInput
+    case $menuInput in
+        1) bash <(curl -Lsk https://raw.githubusercontent.com/helloxz/ccaa/master/ccaa.sh) ;;
+        2) ${PACKAGE_INSTALL[int]} ca-certificates && wget -N git.io/aria2.sh && chmod +x aria2.sh && bash aria2.sh ;;
+        0) menu2 ;;
+        *) menu2b ;;
+    esac
+}
+
+menu2c(){
+    clear
+    about
+    echo ""
+    echo -e " ${GREEN}1.${PLAIN} 官方版"
+    echo -e " ${GREEN}2.${PLAIN} 傻瓜式一键带仓库"
+    echo -e " ${GREEN}3.${PLAIN} 青龙面板一键依赖（需要默认容器名）"
+    echo " -------------"
+    echo -e " ${GREEN}0.${PLAIN} 返回上一页"
+    echo ""
+    read -rp " 请输入选项:" menuInput
+    case $menuInput in
+        1) qlpanel ;;
+        2) wget https://raw.githubusercontents.com/shidahuilang/QL-/main/lang1.sh && bash lang1.sh ;;
+        3) docker exec -it qinglong bash -c "$(curl -fsSL https://raw.githubusercontents.com/FlechazoPh/QLDependency/main/Shell/QLOneKeyDependency.sh | sh)" ;;
+        0) menu2 ;;
+        *) menu2c ;;
+    esac
+}
+
+menu2d(){
+    clear
+    about
+    echo ""
+    echo -e " ${GREEN}1.${PLAIN} Trojan面板"
+    echo -e " ${GREEN}2.${PLAIN} x-ui面板"
+    echo -e " ${GREEN}3.${PLAIN} 青龙面板"
+    echo " -------------"
+    echo -e " ${GREEN}0.${PLAIN} 返回上一页"
+    echo ""
+    read -rp " 请输入选项:" menuInput
+    case $menuInput in
+        1) source <(curl -sL https://git.io/trojan-install) ;;
+        2) xui ;;
+        0) menu2 ;;
+        *) menu2d ;;
+    esac
+}
+
+
+
+menu2e(){
+    clear
+    about
+    echo ""
+    echo -e " ${GREEN}1.${PLAIN} 哪吒面板（探针）"
+    echo -e " ${GREEN}2.${PLAIN} ServerStatus-Hotaru"
+    echo " -------------"
+    echo -e " ${GREEN}0.${PLAIN} 返回上一页"
+    echo ""
+    read -rp " 请输入选项:" menuInput
+    case $menuInput in
+        1) curl -L https://raw.githubusercontents.com/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && bash nezha.sh ;;
+        2) serverstatus ;;
+        0) menu2 ;;
+        *) menu2e ;;
     esac
 }
 
@@ -482,7 +564,7 @@ menu3(){
     echo " -------------"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
-    read -rp " 请输入选项 [0-6]:" menuInput
+    read -rp " 请输入选项:" menuInput
     case $menuInput in
         1) wget -P /root -N --no-check-certificate "https://raw.githubusercontents.com/mack-a/v2ray-agent/master/install.sh" && chmod 700 /root/install.sh && /root/install.sh ;;
         2) wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontents.com/wulabing/V2Ray_ws-tls_bash_onekey/master/install.sh" && chmod +x install.sh && bash install.sh ;;
@@ -502,16 +584,16 @@ menu4(){
     clear
     about
     echo ""
-    echo -e " ${GREEN}1.${PLAIN} VPS测试 (bench.sh)"
-    echo -e " ${GREEN}2.${PLAIN} VPS测试 (superbench)"
-    echo -e " ${GREEN}3.${PLAIN} VPS测试 (lemonbench)"
-    echo -e " ${GREEN}4.${PLAIN} VPS测试 (融合怪全测)"
+    echo -e " ${GREEN}1.${PLAIN} VPS测试-bench.sh"
+    echo -e " ${GREEN}2.${PLAIN} VPS测试-superbench"
+    echo -e " ${GREEN}3.${PLAIN} VPS测试-lemonbench"
+    echo -e " ${GREEN}4.${PLAIN} VPS测试-融合全测"
     echo -e " ${GREEN}5.${PLAIN} 流媒体检测"
     echo -e " ${GREEN}6.${PLAIN} 三网测速"
     echo " -------------"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
-    read -rp " 请输入选项 [0-7]:" menuInput
+    read -rp " 请输入选项:" menuInput
     case $menuInput in
         1) wget -qO- bench.sh | bash ;;
         2) wget -qO- --no-check-certificate https://raw.githubusercontents.com/oooldking/script/master/superbench.sh | bash ;;
@@ -528,32 +610,16 @@ menu5(){
     clear
     about
     echo ""
-    echo -e " ${GREEN}1.${PLAIN} 哪吒面板"
-    echo " -------------"
-    echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
-    echo ""
-    read -rp " 请输入选项 [0-2]:" menuInput
-    case $menuInput in
-        1) curl -L https://raw.githubusercontents.com/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && bash nezha.sh ;;
-        0) menux ;;
-        *) menu5 ;;
-    esac
-}
-
-menu6(){
-    clear
-    about
-    echo ""
     echo -e " ${GREEN}1.${PLAIN} 一键Debian（支持ARM）密码useradmin"
     echo -e " ${GREEN}2.${PLAIN} 一键dd脚本魔改版（cxthhhhh）"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
-    read -rp " 请输入选项 [0-6]:" menuInput
+    read -rp " 请输入选项:" menuInput
     case $menuInput in
         1) curl -fLO https://raw.githubusercontent.com/bohanyang/debi/master/debi.sh && chmod a+rx debi.sh && sudo ./debi.sh --cdn --network-console --ethx --bbr --user root --password useradmin && sudo shutdown -r now ;;
         2) wget --no-check-certificate -qO ~/Network-Reinstall-System-Modify.sh 'https://www.cxthhhhh.com/CXT-Library/Network-Reinstall-System-Modify/Network-Reinstall-System-Modify.sh' && chmod a+x ~/Network-Reinstall-System-Modify.sh && bash ~/Network-Reinstall-System-Modify.sh -UI_Options ;;
         0) menux ;;
-        *) menu6 ;;
+        *) menu5 ;;
     esac
 }
 
