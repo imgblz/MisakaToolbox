@@ -10,9 +10,6 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaTo
 
 第一次运行以后，可用快捷方式 `bash MisakaToolbox.sh`启动
 
-## 计划
-
-4.0换个玩
 
 ## 更新日志
 
