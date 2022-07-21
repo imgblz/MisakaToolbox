@@ -1,5 +1,7 @@
 # MisakaToolbox 复活版
 
+实际上这个就是一堆脚本的合集
+
 ## 使用方法
 1. 用SSH客户端连接上VPS，输入以下命令（若不是root用户请先`sudo -i`提权）
 ```shell
@@ -10,7 +12,7 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaTo
 
 ## 计划
 
-20220721计划重构脚本
+4.0换个玩
 
 ## 更新日志
 
@@ -18,6 +20,8 @@ Ver v3.9(20220721) 改下逻辑，删了点没用的
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+    
+Ver v3.9(20220721) 改下逻辑，删了点没用的
     
 Ver 3.8（20220718-2） 优化脚本大小
     
@@ -37,7 +41,7 @@ Ver 3.2（20220707） 迁移仓库，删除部分脚本（变成杰哥的样纸�
 
 ## 感谢列表
 
-感谢他们的贡献，让脚本得到进一步完善
+感谢他们的贡献
 <details>
     <summary>点击展开</summary>
 
