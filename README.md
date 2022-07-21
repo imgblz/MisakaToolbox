@@ -8,9 +8,9 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaTo
 
 第一次运行以后，可用快捷方式 `bash MisakaToolbox.sh`启动
 
-## 工具箱功能提议
+## 计划
 
-想要工具箱添加新的功能？直接提lssues
+20220721计划重构脚本
 
 ## 更新日志
 
@@ -40,6 +40,8 @@ Ver 3.2（20220707） 迁移仓库，删除部分脚本（变成杰哥的样纸�
 感谢他们的贡献，让脚本得到进一步完善
 <details>
     <summary>点击展开</summary>
+
+感谢Misaka no的开发
 
 BBR(KVM)：https://github.com/ylx2016/Linux-NetSpeed
 
@@ -84,8 +86,6 @@ DD系统：https://www.cxthhhhh.com/network-reinstall-system-modify
 更换系统语言：https://github.com/johnrosen1/vpstoolbox
 </details>  
 
-
-## 感谢Misaka no的开发
 
 
 GNU General Public License v3.0  
