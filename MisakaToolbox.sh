@@ -378,7 +378,7 @@ menux(){
         2) menu2 ;;
         3) menu3 ;;
         4) menu4 ;;
-        6) menu5 ;;
+        5) menu5 ;;
         9) menuz ;;
 	    0) exit 1 ;;
         *) menux ;;
