@@ -14,7 +14,7 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaTo
 
 ## 更新日志
 
-Ver 3.8（20220718-2） 优化脚本大小
+Ver v3.9(20220721) 改下逻辑，删了点没用的
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
@@ -85,7 +85,6 @@ DD系统：https://www.cxthhhhh.com/network-reinstall-system-modify
 
 更换系统语言：https://github.com/johnrosen1/vpstoolbox
 </details>  
-
 
 
 GNU General Public License v3.0  
