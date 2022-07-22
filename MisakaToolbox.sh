@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v3.9(20220721)"
-version_log="改下逻辑，删了点没用的"
+version="v3.9.1(20220722)"
+version_log="忘了dd脚本加个中国源，要用才想起来"
 
 
 RED="\033[31m"
@@ -611,13 +611,15 @@ menu5(){
     about
     echo ""
     echo -e " ${GREEN}1.${PLAIN} 一键Debian（支持ARM）密码useradmin"
-    echo -e " ${GREEN}2.${PLAIN} 一键dd脚本魔改版（cxthhhhh）"
+    echo -e " ${GREEN}2.${PLAIN} 一键Debian中国源（支持ARM）密码useradmin"
+    echo -e " ${GREEN}3.${PLAIN} 一键dd脚本魔改版（cxthhhhh）"
     echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
     echo ""
     read -rp " 请输入选项:" menuInput
     case $menuInput in
         1) curl -fLO https://raw.githubusercontent.com/bohanyang/debi/master/debi.sh && chmod a+rx debi.sh && sudo ./debi.sh --cdn --network-console --ethx --bbr --user root --password useradmin && sudo shutdown -r now ;;
-        2) wget --no-check-certificate -qO ~/Network-Reinstall-System-Modify.sh 'https://www.cxthhhhh.com/CXT-Library/Network-Reinstall-System-Modify/Network-Reinstall-System-Modify.sh' && chmod a+x ~/Network-Reinstall-System-Modify.sh && bash ~/Network-Reinstall-System-Modify.sh -UI_Options ;;
+	2) curl -fLO https://raw.githubusercontent.com/bohanyang/debi/master/debi.sh && chmod a+rx debi.sh && sudo ./debi.sh --cdn --network-console --ethx --bbr --user root --dns '223.5.5.5 223.6.6.6' --mirror-protocol https --mirror-host mirrors.aliyun.com --security-repository mirror --ntp ntp.aliyun.com --password useradmin && sudo shutdown -r now ;;
+        3) wget --no-check-certificate -qO ~/Network-Reinstall-System-Modify.sh 'https://www.cxthhhhh.com/CXT-Library/Network-Reinstall-System-Modify/Network-Reinstall-System-Modify.sh' && chmod a+x ~/Network-Reinstall-System-Modify.sh && bash ~/Network-Reinstall-System-Modify.sh -UI_Options ;;
         0) menux ;;
         *) menu5 ;;
     esac
