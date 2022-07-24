@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v3.9.1(20220722)"
-version_log="忘了dd脚本加个中国源，要用才想起来"
+version="v4.0.0(20220724)"
+version_log="改强制更新为可选，防止有时候未缓存到节点导致重复更新"
 
 
 RED="\033[31m"
@@ -321,12 +321,29 @@ menu() {
     echo "检查更新..."
     wget -q -O /tmp/version.txt https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/version.txt
     if [ "$(cat /tmp/version.txt)" != "$version" ]; then
-        echo "发现新版本，正在更新..."
-        wget -N --no-check-certificate https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh
+        echo "发现新版本，请及时更新！"
+        wget -q -O /tmp/tools_uplog.txt https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/log.txt
+        menuu
     else
         echo "当前已经是最新版本 版本：$version"
         menuz
     fi
+}
+
+menuu(){
+    clear
+    echo "发现新版本，建议更新"
+    echo ""
+    echo -e "${YELLOW}当前版本${PLAIN}：$version"
+    echo -e "${YELLOW}最新版本${PLAIN}：$(cat /tmp/version.txt)"
+    echo "更新日志：$(cat /tmp/tools_uplog.txt)"
+    echo ""
+    read -rp "是否更新？[y/n]" menuNumberInput
+    case "$menuNumberInput" in
+        y) wget -N --no-check-certificate https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh ;;
+        n) menuz ;;
+        *) menuu ;;
+    esac
 }
 
 menuz(){
