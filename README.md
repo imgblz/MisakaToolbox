@@ -13,10 +13,12 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/imgblz/MisakaTo
 
 ## 更新日志
 
-Ver v3.9.1(20220722) 忘了dd脚本加个中国源，要用才想起来
+Ver v4.0.0(20220724) 改强制更新为可选，防止有时候未缓存到节点导致重复更新
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+    
+Ver v4.0.0(20220724) 改强制更新为可选，防止有时候未缓存到节点导致重复更新
     
 Ver v3.9.1(20220722) 忘了dd脚本加个中国源，要用才想起来
     
