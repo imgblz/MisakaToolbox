@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v4.0.0(20220724)"
-version_log="改强制更新为可选，防止有时候未缓存到节点导致重复更新"
+version="v4.0.1(20220725)"
+version_log="发现7ed的ipv6有时候抽风了，改成了jsdelivr"
 
 
 RED="\033[31m"
@@ -48,7 +48,7 @@ about(){
     echo -e "#         ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
     echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
     echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
-    echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
+    echo -e "# ${GREEN}github raw加速${PLAIN}: https://jsdelivr.com            #"
     echo "#####################################################"
 }
 
@@ -167,12 +167,12 @@ bbr_script(){
     virt=$(systemd-detect-virt)
     TUN=$(cat /dev/net/tun 2>&1 | tr '[:upper:]' '[:lower:]')
     if [[ ${virt} =~ "kvm"|"zvm"|"microsoft"|"xen"|"vmware" ]]; then
-        wget -N --no-check-certificate "https://raw.githubusercontents.com/chiakge/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
+        wget -N --no-check-certificate "https://cdn.jsdelivr.net/gh/chiakge/Linux-NetSpeed/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
     elif [[ ${virt} == "openvz" ]]; then
         if [[ ! $TUN =~ 'in bad state' ]] && [[ ! $TUN =~ '处于错误状态' ]] && [[ ! $TUN =~ 'Die Dateizugriffsnummer ist in schlechter Verfassung' ]]; then
-            wget -N --no-check-certificate https://raw.githubusercontents.com/mzz2017/lkl-haproxy/master/lkl-haproxy.sh && bash lkl-haproxy.sh
+            wget -N --no-check-certificate https://cdn.jsdelivr.net/gh/imgblz/openvz-tun/tun.sh && bash lkl-haproxy.sh
         else
-            wget -N --no-check-certificate https://raw.githubusercontents.com/mzz2017/lkl-haproxy/master/lkl-haproxy.sh && bash lkl-haproxy.sh
+            wget -N --no-check-certificate https://cdn.jsdelivr.net/gh/mzz2017/lkl-haproxy/lkl-haproxy.sh && bash lkl-haproxy.sh
         fi
     else
         red "抱歉，你的VPS虚拟化架构暂时不支持bbr加速脚本"
@@ -202,10 +202,10 @@ warp_script(){
     echo ""
     read -rp "请输入选项:" warpNumberInput
 	case $warpNumberInput in
-        1) wget -N https://raw.githubusercontents.com/fscarmen/warp/main/menu.sh && bash menu.sh ;;
-        2) wget -N https://raw.githubusercontents.com/fscarmen/warp/main/docker.sh && bash docker.sh ;;
-        3) bash <(curl -sSL https://raw.githubusercontents.com/fscarmen/warp_unlock/main/unlock.sh) ;;
-        4) bash <(curl -fsSL https://raw.githubusercontents.com/P3TERX/warp.sh/main/warp.sh) menu ;;
+        1) wget -N https://cdn.jsdelivr.net/gh/fscarmen/warp/menu.sh && bash menu.sh ;;
+        2) wget -N https://cdn.jsdelivr.net/gh/fscarmen/warp/docker.sh && bash docker.sh ;;
+        3) bash <(curl -sSL https://cdn.jsdelivr.net/gh/fscarmen/warp_unlock/unlock.sh) ;;
+        4) bash <(curl -fsSL https://cdn.jsdelivr.net/gh/P3TERX/warp.sh/warp.sh) menu ;;
         0) menux ;;
         *) warp_script ;;
     esac
@@ -271,8 +271,8 @@ xui() {
     echo "0. 返回主菜单"
     read -rp "请输入选项:" xuiNumberInput
     case "$xuiNumberInput" in
-        1) bash <(curl -Ls https://raw.githubusercontents.com/vaxilu/x-ui/master/install.sh) ;;
-        2) bash <(curl -Ls https://raw.githubusercontents.com/FranzKafkaYu/x-ui/master/install.sh) ;;
+        1) bash <(curl -Ls https://cdn.jsdelivr.net/gh/vaxilu/x-ui/install.sh) ;;
+        2) bash <(curl -Ls https://cdn.jsdelivr.net/gh/FranzKafkaYu/x-ui/install.sh) ;;
         0) menx ;;
         *) xui ;;
     esac
@@ -300,7 +300,7 @@ qlpanel(){
 }
 
 serverstatus() {
-    wget -N https://raw.githubusercontents.com/cokemine/ServerStatus-Hotaru/master/status.sh
+    wget -N https://cdn.jsdelivr.net/gh/cokemine/ServerStatus-Hotaru/status.sh
     echo "                            "
     green "请选择你需要安装探针的客户端类型"
     echo "1. 服务端"
@@ -319,10 +319,10 @@ serverstatus() {
 menu() {
     clear
     echo "检查更新..."
-    wget -q -O /tmp/version.txt https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/version.txt
+    wget -q -O /tmp/version.txt https://cdn.jsdelivr.net/gh/imgblz/MisakaToolbox/version.txt
     if [ "$(cat /tmp/version.txt)" != "$version" ]; then
         echo "发现新版本，请及时更新！"
-        wget -q -O /tmp/tools_uplog.txt https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/log.txt
+        wget -q -O /tmp/tools_uplog.txt https://cdn.jsdelivr.net/gh/imgblz/MisakaToolbox/log.txt
         menuu
     else
         echo "当前已经是最新版本 版本：$version"
@@ -340,7 +340,7 @@ menuu(){
     echo ""
     read -rp "是否更新？[y/n]" menuNumberInput
     case "$menuNumberInput" in
-        y) wget -N --no-check-certificate https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh ;;
+        y) wget -N --no-check-certificate https://cdn.jsdelivr.net/gh/imgblz/MisakaToolbox/MisakaToolbox.sh && bash MisakaToolbox.sh ;;
         n) menuz ;;
         *) menuu ;;
     esac
@@ -430,7 +430,7 @@ menu1(){
         7) setChinese ;;
     	8) wget https://www.moerats.com/usr/shell/swap.sh && bash swap.sh ;;
         9) tools ;;
-        10) wget https://raw.githubusercontents.com/imgblz/vpsroot/main/root.sh && bash root.sh ;;
+        10) wget https://cdn.jsdelivr.net/gh/imgblz/vpsroot/root.sh && bash root.sh ;;
         0) menux ;;
         *) menu1 ;;
     esac
@@ -481,7 +481,7 @@ menu2a(){
         3) sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cyberpanel.net/install.sh) ;;
         4) wget http://dl.amh.sh/amh.sh && bash amh.sh ;;
         5) wget http://kangle.cccyun.cn/start;sh start ;;
-        6) curl -fsSL  https://raw.githubusercontents.com/midoks/mdserver-web/master/scripts/install.sh | bash ;;
+        6) curl -fsSL  https://cdn.jsdelivr.net/gh/midoks/mdserver-web/scripts/install.sh | bash ;;
         7) wget http://panel.ropon.top/panel/lnmp.tar.gz && tar xf lnmp.tar.gz && cd lnmp && ./install.sh ;;
         0) menu2 ;;
         *) menu2a ;;
@@ -519,8 +519,8 @@ menu2c(){
     read -rp " 请输入选项:" menuInput
     case $menuInput in
         1) qlpanel ;;
-        2) wget https://raw.githubusercontents.com/shidahuilang/QL-/main/lang1.sh && bash lang1.sh ;;
-        3) docker exec -it qinglong bash -c "$(curl -fsSL https://raw.githubusercontents.com/FlechazoPh/QLDependency/main/Shell/QLOneKeyDependency.sh | sh)" ;;
+        2) wget https://cdn.jsdelivr.net/gh/shidahuilang/QL-/lang1.sh && bash lang1.sh ;;
+        3) docker exec -it qinglong bash -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/FlechazoPh/QLDependency/Shell/QLOneKeyDependency.sh | sh)" ;;
         0) menu2 ;;
         *) menu2c ;;
     esac
@@ -558,7 +558,7 @@ menu2e(){
     echo ""
     read -rp " 请输入选项:" menuInput
     case $menuInput in
-        1) curl -L https://raw.githubusercontents.com/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && bash nezha.sh ;;
+        1) curl -L https://cdn.jsdelivr.net/gh/naiba/nezha/script/install.sh -o nezha.sh && chmod +x nezha.sh && bash nezha.sh ;;
         2) serverstatus ;;
         0) menu2 ;;
         *) menu2e ;;
@@ -583,13 +583,13 @@ menu3(){
     echo ""
     read -rp " 请输入选项:" menuInput
     case $menuInput in
-        1) wget -P /root -N --no-check-certificate "https://raw.githubusercontents.com/mack-a/v2ray-agent/master/install.sh" && chmod 700 /root/install.sh && /root/install.sh ;;
+        1) wget -P /root -N --no-check-certificate "https://cdn.jsdelivr.net/gh/mack-a/v2ray-agent/install.sh" && chmod 700 /root/install.sh && /root/install.sh ;;
         2) wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontents.com/wulabing/V2Ray_ws-tls_bash_onekey/master/install.sh" && chmod +x install.sh && bash install.sh ;;
         3) wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontents.com/wulabing/Xray_onekey/nginx_forward/install.sh" && chmod +x install.sh && bash install.sh ;;
-        4) wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontents.com/wulabing/Xray_onekey/main/install.sh" && chmod +x install.sh && bash install.sh ;;
-        5) wget -N --no-check-certificate https://raw.githubusercontents.com/imgblz/Xray-script-master/master/xray.sh && bash xray.sh ;;
-        6) wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontents.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh && chmod +x shadowsocks-all.sh && ./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log ;;
-        7) mkdir /home/mtproxy && cd /home/mtproxy && curl -s -o mtproxy.sh https://raw.githubusercontents.com/sunpma/mtp/master/mtproxy.sh && chmod +x mtproxy.sh && bash mtproxy.sh && bash mtproxy.sh start ;;
+        4) wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontents.com/wulabing/Xray_onekey/install.sh" && chmod +x install.sh && bash install.sh ;;
+        5) wget -N --no-check-certificate https://cdn.jsdelivr.net/gh/imgblz/Xray-script-master/xray.sh && bash xray.sh ;;
+        6) wget --no-check-certificate -O shadowsocks-all.sh https://cdn.jsdelivr.net/gh/teddysun/shadowsocks_install/shadowsocks-all.sh && chmod +x shadowsocks-all.sh && ./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log ;;
+        7) mkdir /home/mtproxy && cd /home/mtproxy && curl -s -o mtproxy.sh https://cdn.jsdelivr.net/gh/sunpma/mtp/mtproxy.sh && chmod +x mtproxy.sh && bash mtproxy.sh && bash mtproxy.sh start ;;
         8) wget https://git.io/wireguard -O wireguard-install.sh && bash wireguard-install.sh ;;
         8) bash -c "$(curl -fsSL https://raw.githubusercontents.com/shidahuilang/SS-SSR-TG-iptables-bt/main/sh/clash_install.sh)" ;;
         0) menux ;;
@@ -613,10 +613,10 @@ menu4(){
     read -rp " 请输入选项:" menuInput
     case $menuInput in
         1) wget -qO- bench.sh | bash ;;
-        2) wget -qO- --no-check-certificate https://raw.githubusercontents.com/oooldking/script/master/superbench.sh | bash ;;
+        2) wget -qO- --no-check-certificate https://cdn.jsdelivr.net/gh/oooldking/script/superbench.sh | bash ;;
         3) curl -fsL https://ilemonra.in/LemonBenchIntl | bash -s fast ;;
         4) bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh) ;;
-        5) bash <(curl -L -s https://raw.githubusercontents.com/lmc999/RegionRestrictionCheck/main/check.sh) ;;
+        5) bash <(curl -L -s https://cdn.jsdelivr.net/gh/lmc999/RegionRestrictionCheck/check.sh) ;;
         6) bash <(curl -Lso- https://git.io/superspeed.sh) ;;
         0) menux ;;
         *) menu4 ;;
