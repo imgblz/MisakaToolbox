@@ -13,10 +13,12 @@ wget -N --no-check-certificate https://raw.githubusercontents.com/imgblz/MisakaT
 
 ## 更新日志
 
-Ver 4.0.0(20220724) 改强制更新为可选，防止有时候未缓存到节点导致重复更新
+Ver 4.0.1(20220725) 发现7ed的ipv6有时候抽风了，改成了jsdelivr
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+    
+Ver 4.0.1(20220725) 发现7ed的ipv6有时候抽风了，改成了jsdelivr
     
 Ver 4.0.0(20220724) 改强制更新为可选，防止有时候未缓存到节点导致重复更新
     
