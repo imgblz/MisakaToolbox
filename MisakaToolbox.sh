@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v4.0.3(20220727-2)"
-version_log="bt换链接了"
+version="v4.1.0(20220727-3)"
+version_log="更换为自建CDN"
 
 
 RED="\033[31m"
@@ -45,11 +45,31 @@ done
 
 about(){
     echo "#####################################################"
-    echo -e "#         ${RED}Misaka Linux Toolbox 复活版${PLAIN}               #"
+    echo -e "#            ${RED}Misaka Linux Toolbox  ${PLAIN}               #"
     echo -e "# ${GREEN}我的博客${PLAIN}: https://blog.imgblz.cn                  #"
     echo -e "# ${GREEN}项目地址${PLAIN}: https://github.com/imgblz/MisakaToolbox #"
-    echo -e "# ${GREEN}github raw加速${PLAIN}: https://www.7ed.net               #"
+    echo -e "# ${GREEN}Raw加速${PLAIN}: https://ghraw.imgblz.cn                #"
     echo "#####################################################"
+}
+
+aboutx(){
+    clean
+    echo -e "                 About"
+    echo -e "这个只是一个一堆脚本的合集罢了，方便搞事情，并无什么技术含量"
+    echo -e "维护这个东东只是因为我懒！！！"
+    echo -e "github反代项目都可以用，只要大家不搞事情，我就继续放这用"
+    echo -e "CDN由Cloudflare提供，国内由自建反向代理提供"
+    echo -e ""
+    echo " -------------"
+    echo -e " ${GREEN}1.${PLAIN} 返回主菜单"
+    echo -e " ${GREEN}2.${PLAIN} 更新到Beat版(仅供开发测试用)"
+    echo ""
+    read -rp " 请输入选项:" menuInput
+    case $menuInput in
+        1) menux ;;
+        2) wget -N --no-check-certificate https://ghraw.imgblz.cn/imgblz/MisakaToolbox/Beat/MisakaToolbox.sh && bash MisakaToolbox.sh ;;
+        *) menux ;;
+    esac
 }
 
 check_status(){
@@ -167,12 +187,12 @@ bbr_script(){
     virt=$(systemd-detect-virt)
     TUN=$(cat /dev/net/tun 2>&1 | tr '[:upper:]' '[:lower:]')
     if [[ ${virt} =~ "kvm"|"zvm"|"microsoft"|"xen"|"vmware" ]]; then
-        wget -N --no-check-certificate "https://raw.githubusercontents.com/chiakge/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
+        wget -N --no-check-certificate "https://ghraw.imgblz.cn/chiakge/Linux-NetSpeed/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
     elif [[ ${virt} == "openvz" ]]; then
         if [[ ! $TUN =~ 'in bad state' ]] && [[ ! $TUN =~ '处于错误状态' ]] && [[ ! $TUN =~ 'Die Dateizugriffsnummer ist in schlechter Verfassung' ]]; then
-            wget -N --no-check-certificate https://raw.githubusercontents.com/mzz2017/lkl-haproxy/master/lkl-haproxy.sh && bash lkl-haproxy.sh
+            wget -N --no-check-certificate https://ghraw.imgblz.cn/mzz2017/lkl-haproxy/master/lkl-haproxy.sh && bash lkl-haproxy.sh
         else
-            wget -N --no-check-certificate https://raw.githubusercontents.com/mzz2017/lkl-haproxy/master/lkl-haproxy.sh && bash lkl-haproxy.sh
+            wget -N --no-check-certificate https://ghraw.imgblz.cn/mzz2017/lkl-haproxy/master/lkl-haproxy.sh && bash lkl-haproxy.sh
         fi
     else
         red "抱歉，你的VPS虚拟化架构暂时不支持bbr加速脚本"
@@ -202,10 +222,10 @@ warp_script(){
     echo ""
     read -rp "请输入选项:" warpNumberInput
 	case $warpNumberInput in
-        1) wget -N https://raw.githubusercontents.com/fscarmen/warp/main/menu.sh && bash menu.sh ;;
-        2) wget -N https://raw.githubusercontents.com/fscarmen/warp/main/docker.sh && bash docker.sh ;;
-        3) bash <(curl -sSL https://raw.githubusercontents.com/fscarmen/warp_unlock/main/unlock.sh) ;;
-        4) bash <(curl -fsSL https://raw.githubusercontents.com/P3TERX/warp.sh/main/warp.sh) menu ;;
+        1) wget -N https://ghraw.imgblz.cn/fscarmen/warp/main/menu.sh && bash menu.sh ;;
+        2) wget -N https://ghraw.imgblz.cn/fscarmen/warp/main/docker.sh && bash docker.sh ;;
+        3) bash <(curl -sSL https://ghraw.imgblz.cn/fscarmen/warp_unlock/main/unlock.sh) ;;
+        4) bash <(curl -fsSL https://ghraw.imgblz.cn/P3TERX/warp.sh/main/warp.sh) menu ;;
         0) menux ;;
         *) warp_script ;;
     esac
@@ -257,9 +277,9 @@ tools(){
     if [[ $SYSTEM = "CentOS" ]]; then
         green "不行！用debian去"
     elif [[ $SYSTEM = "Debian" ]]; then
-        apt -o Acquire::AllowInsecureRepositories=true -o Acquire::AllowDowngradeToInsecureRepositories=true update && apt-get install sudo curl screen -y && curl -LO https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/vps.sh && sudo screen -U bash vps.sh
+        apt -o Acquire::AllowInsecureRepositories=true -o Acquire::AllowDowngradeToInsecureRepositories=true update && apt-get install sudo curl screen -y && curl -LO https://ghraw.imgblz.cn/johnrosen1/vpstoolbox/master/vps.sh && sudo screen -U bash vps.sh
     else
-        apt -o Acquire::AllowInsecureRepositories=true -o Acquire::AllowDowngradeToInsecureRepositories=true update && apt-get install sudo curl screen -y && curl -LO https://raw.githubusercontent.com/johnrosen1/vpstoolbox/master/vps.sh && sudo screen -U bash vps.sh
+        apt -o Acquire::AllowInsecureRepositories=true -o Acquire::AllowDowngradeToInsecureRepositories=true update && apt-get install sudo curl screen -y && curl -LO https://ghraw.imgblz.cn/johnrosen1/vpstoolbox/master/vps.sh && sudo screen -U bash vps.sh
     fi
 }
 
@@ -271,8 +291,8 @@ xui() {
     echo "0. 返回主菜单"
     read -rp "请输入选项:" xuiNumberInput
     case "$xuiNumberInput" in
-        1) bash <(curl -Ls https://raw.githubusercontents.com/vaxilu/x-ui/master/install.sh) ;;
-        2) bash <(curl -Ls https://raw.githubusercontents.com/FranzKafkaYu/x-ui/master/install.sh) ;;
+        1) bash <(curl -Ls https://ghraw.imgblz.cn/vaxilu/x-ui/master/install.sh) ;;
+        2) bash <(curl -Ls https://ghraw.imgblz.cn/FranzKafkaYu/x-ui/master/install.sh) ;;
         0) menx ;;
         *) xui ;;
     esac
@@ -300,7 +320,7 @@ qlpanel(){
 }
 
 serverstatus() {
-    wget -N https://raw.githubusercontents.com/cokemine/ServerStatus-Hotaru/master/status.sh
+    wget -N https://ghraw.imgblz.cn/cokemine/ServerStatus-Hotaru/master/status.sh
     echo "                            "
     green "请选择你需要安装探针的客户端类型"
     echo "1. 服务端"
@@ -319,10 +339,10 @@ serverstatus() {
 menu() {
     clear
     echo "检查更新..."
-    wget -q -O /tmp/version.txt https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/version.txt
+    wget -q -O /tmp/version.txt https://ghraw.imgblz.cn/imgblz/MisakaToolbox/main/version.txt
     if [ "$(cat /tmp/version.txt)" != "$version" ]; then
         echo "发现新版本，请及时更新！"
-        wget -q -O /tmp/tools_uplog.txt https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/log.txt
+        wget -q -O /tmp/tools_uplog.txt https://ghraw.imgblz.cn/imgblz/MisakaToolbox/main/log.txt
         menuu
     else
         echo "当前已经是最新版本 版本：$version"
@@ -340,7 +360,7 @@ menuu(){
     echo ""
     read -rp "是否更新？[y/n]" menuNumberInput
     case "$menuNumberInput" in
-        y) wget -N --no-check-certificate https://raw.githubusercontents.com/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh ;;
+        y) wget -N --no-check-certificate https://ghraw.imgblz.cn/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh ;;
         n) menuz ;;
         *) menuu ;;
     esac
@@ -385,6 +405,7 @@ menux(){
     echo -e " ${GREEN}4.${PLAIN} 性能测试"
     echo -e " ${GREEN}5.${PLAIN} 一键更换（dd）系统"
     echo -e " ${RED}9.${PLAIN} 回到欢迎页"
+    echo -e " ${RED}10.${PLAIN} 关于"
     echo -e " ${RED}0.${PLAIN} 退出"
     echo ""
     echo -e "${YELLOW}版本号${PLAIN}：$version"
@@ -397,6 +418,7 @@ menux(){
         4) menu4 ;;
         5) menu5 ;;
         9) menuz ;;
+        10) aboutx ;;
 	    0) exit 1 ;;
         *) menux ;;
     esac
@@ -430,7 +452,7 @@ menu1(){
         7) setChinese ;;
     	8) wget https://www.moerats.com/usr/shell/swap.sh && bash swap.sh ;;
         9) tools ;;
-        10) wget https://raw.githubusercontents.com/imgblz/vpsroot/main/root.sh && bash root.sh ;;
+        10) wget https://ghraw.imgblz.cn/imgblz/vpsroot/main/root.sh && bash root.sh ;;
         0) menux ;;
         *) menu1 ;;
     esac
@@ -481,7 +503,7 @@ menu2a(){
         3) sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cyberpanel.net/install.sh) ;;
         4) wget http://dl.amh.sh/amh.sh && bash amh.sh ;;
         5) wget http://kangle.cccyun.cn/start;sh start ;;
-        6) curl -fsSL  https://raw.githubusercontents.com/midoks/mdserver-web/master/scripts/install.sh | bash ;;
+        6) curl -fsSL  https://ghraw.imgblz.cn/midoks/mdserver-web/master/scripts/install.sh | bash ;;
         7) wget http://panel.ropon.top/panel/lnmp.tar.gz && tar xf lnmp.tar.gz && cd lnmp && ./install.sh ;;
         0) menu2 ;;
         *) menu2a ;;
@@ -499,7 +521,7 @@ menu2b(){
     echo ""
     read -rp " 请输入选项:" menuInput
     case $menuInput in
-        1) bash <(curl -Lsk https://raw.githubusercontent.com/helloxz/ccaa/master/ccaa.sh) ;;
+        1) bash <(curl -Lsk https://ghraw.imgblz.cn/helloxz/ccaa/master/ccaa.sh) ;;
         2) ${PACKAGE_INSTALL[int]} ca-certificates && wget -N git.io/aria2.sh && chmod +x aria2.sh && bash aria2.sh ;;
         0) menu2 ;;
         *) menu2b ;;
@@ -519,8 +541,8 @@ menu2c(){
     read -rp " 请输入选项:" menuInput
     case $menuInput in
         1) qlpanel ;;
-        2) wget https://raw.githubusercontents.com/shidahuilang/QL-/main/lang1.sh && bash lang1.sh ;;
-        3) docker exec -it qinglong bash -c "$(curl -fsSL https://raw.githubusercontents.com/FlechazoPh/QLDependency/main/Shell/QLOneKeyDependency.sh | sh)" ;;
+        2) wget https://ghraw.imgblz.cn/shidahuilang/QL-/main/lang1.sh && bash lang1.sh ;;
+        3) docker exec -it qinglong bash -c "$(curl -fsSL https://ghraw.imgblz.cn/FlechazoPh/QLDependency/main/Shell/QLOneKeyDependency.sh | sh)" ;;
         0) menu2 ;;
         *) menu2c ;;
     esac
@@ -558,7 +580,7 @@ menu2e(){
     echo ""
     read -rp " 请输入选项:" menuInput
     case $menuInput in
-        1) curl -L https://raw.githubusercontents.com/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && bash nezha.sh ;;
+        1) curl -L https://ghraw.imgblz.cn/naiba/nezha/master/script/install.sh -o nezha.sh && chmod +x nezha.sh && bash nezha.sh ;;
         2) serverstatus ;;
         0) menu2 ;;
         *) menu2e ;;
@@ -583,15 +605,15 @@ menu3(){
     echo ""
     read -rp " 请输入选项:" menuInput
     case $menuInput in
-        1) wget -P /root -N --no-check-certificate "https://raw.githubusercontents.com/mack-a/v2ray-agent/master/install.sh" && chmod 700 /root/install.sh && /root/install.sh ;;
-        2) wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontents.com/wulabing/V2Ray_ws-tls_bash_onekey/master/install.sh" && chmod +x install.sh && bash install.sh ;;
-        3) wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontents.com/wulabing/Xray_onekey/nginx_forward/install.sh" && chmod +x install.sh && bash install.sh ;;
-        4) wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontents.com/wulabing/Xray_onekey/main/install.sh" && chmod +x install.sh && bash install.sh ;;
-        5) wget -N --no-check-certificate https://raw.githubusercontents.com/imgblz/Xray-script-master/master/xray.sh && bash xray.sh ;;
-        6) wget --no-check-certificate -O shadowsocks-all.sh https://raw.githubusercontents.com/teddysun/shadowsocks_install/master/shadowsocks-all.sh && chmod +x shadowsocks-all.sh && ./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log ;;
-        7) mkdir /home/mtproxy && cd /home/mtproxy && curl -s -o mtproxy.sh https://raw.githubusercontents.com/sunpma/mtp/master/mtproxy.sh && chmod +x mtproxy.sh && bash mtproxy.sh && bash mtproxy.sh start ;;
+        1) wget -P /root -N --no-check-certificate "https://ghraw.imgblz.cn/mack-a/v2ray-agent/master/install.sh" && chmod 700 /root/install.sh && /root/install.sh ;;
+        2) wget -N --no-check-certificate -q -O install.sh "https://ghraw.imgblz.cn/wulabing/V2Ray_ws-tls_bash_onekey/master/install.sh" && chmod +x install.sh && bash install.sh ;;
+        3) wget -N --no-check-certificate -q -O install.sh "https://ghraw.imgblz.cn/wulabing/Xray_onekey/nginx_forward/install.sh" && chmod +x install.sh && bash install.sh ;;
+        4) wget -N --no-check-certificate -q -O install.sh "https://ghraw.imgblz.cn/wulabing/Xray_onekey/main/install.sh" && chmod +x install.sh && bash install.sh ;;
+        5) wget -N --no-check-certificate https://ghraw.imgblz.cn/imgblz/Xray-script-master/master/xray.sh && bash xray.sh ;;
+        6) wget --no-check-certificate -O shadowsocks-all.sh https://ghraw.imgblz.cn/teddysun/shadowsocks_install/master/shadowsocks-all.sh && chmod +x shadowsocks-all.sh && ./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log ;;
+        7) mkdir /home/mtproxy && cd /home/mtproxy && curl -s -o mtproxy.sh https://ghraw.imgblz.cn/sunpma/mtp/master/mtproxy.sh && chmod +x mtproxy.sh && bash mtproxy.sh && bash mtproxy.sh start ;;
         8) wget https://git.io/wireguard -O wireguard-install.sh && bash wireguard-install.sh ;;
-        8) bash -c "$(curl -fsSL https://raw.githubusercontents.com/shidahuilang/SS-SSR-TG-iptables-bt/main/sh/clash_install.sh)" ;;
+        8) bash -c "$(curl -fsSL https://ghraw.imgblz.cn/shidahuilang/SS-SSR-TG-iptables-bt/main/sh/clash_install.sh)" ;;
         0) menux ;;
         *) menu3 ;;
     esac
@@ -613,10 +635,10 @@ menu4(){
     read -rp " 请输入选项:" menuInput
     case $menuInput in
         1) wget -qO- bench.sh | bash ;;
-        2) wget -qO- --no-check-certificate https://raw.githubusercontents.com/oooldking/script/master/superbench.sh | bash ;;
+        2) wget -qO- --no-check-certificate https://ghraw.imgblz.cn/oooldking/script/master/superbench.sh | bash ;;
         3) curl -fsL https://ilemonra.in/LemonBenchIntl | bash -s fast ;;
         4) bash <(wget -qO- --no-check-certificate https://gitlab.com/spiritysdx/za/-/raw/main/ecs.sh) ;;
-        5) bash <(curl -L -s https://raw.githubusercontents.com/lmc999/RegionRestrictionCheck/main/check.sh) ;;
+        5) bash <(curl -L -s https://ghraw.imgblz.cn/lmc999/RegionRestrictionCheck/main/check.sh) ;;
         6) bash <(curl -Lso- https://git.io/superspeed.sh) ;;
         0) menux ;;
         *) menu4 ;;
@@ -634,8 +656,8 @@ menu5(){
     echo ""
     read -rp " 请输入选项:" menuInput
     case $menuInput in
-        1) curl -fLO https://raw.githubusercontent.com/bohanyang/debi/master/debi.sh && chmod a+rx debi.sh && sudo ./debi.sh --cdn --network-console --ethx --bbr --user root --password useradmin && sudo shutdown -r now ;;
-	2) curl -fLO https://raw.githubusercontent.com/bohanyang/debi/master/debi.sh && chmod a+rx debi.sh && sudo ./debi.sh --cdn --network-console --ethx --bbr --user root --dns '223.5.5.5 223.6.6.6' --mirror-protocol https --mirror-host mirrors.aliyun.com --security-repository mirror --ntp ntp.aliyun.com --password useradmin && sudo shutdown -r now ;;
+        1) curl -fLO https://ghraw.imgblz.cn/bohanyang/debi/master/debi.sh && chmod a+rx debi.sh && sudo ./debi.sh --cdn --network-console --ethx --bbr --user root --password useradmin && sudo shutdown -r now ;;
+	2) curl -fLO https://ghraw.imgblz.cn/bohanyang/debi/master/debi.sh && chmod a+rx debi.sh && sudo ./debi.sh --cdn --network-console --ethx --bbr --user root --dns '223.5.5.5 223.6.6.6' --mirror-protocol https --mirror-host mirrors.aliyun.com --security-repository mirror --ntp ntp.aliyun.com --password useradmin && sudo shutdown -r now ;;
         3) wget --no-check-certificate -qO ~/Network-Reinstall-System-Modify.sh 'https://www.cxthhhhh.com/CXT-Library/Network-Reinstall-System-Modify/Network-Reinstall-System-Modify.sh' && chmod a+x ~/Network-Reinstall-System-Modify.sh && bash ~/Network-Reinstall-System-Modify.sh -UI_Options ;;
         0) menux ;;
         *) menu5 ;;
