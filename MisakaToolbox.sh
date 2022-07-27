@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v4.0.2(20220727)"
-version_log="退回4.0.0,准备自建CDN"
+version="v4.0.3(20220727-2)"
+version_log="bt换链接了"
 
 
 RED="\033[31m"
@@ -245,9 +245,9 @@ aapanel(){
 
 bt(){
     if [[ $SYSTEM = "CentOS" ]]; then
-        yum install -y wget && wget -O install.sh http://io.yu.al/install/install_6.0.sh && bash install.sh forum
+        curl -sSO http://io.bt.sy/install/install_panel.sh && bash install_panel.sh forum
     elif [[ $SYSTEM = "Debian" ]]; then
-        wget -O install.sh http://io.yu.al/install/install-ubuntu_6.0.sh && bash install.sh forum
+        wget -O install.sh http://io.bt.sy/install/install-ubuntu_6.0.sh && sudo bash install.sh forum
     else
         wget -O install.sh http://io.yu.al/install/install-ubuntu_6.0.sh && sudo bash install.sh forum
     fi
