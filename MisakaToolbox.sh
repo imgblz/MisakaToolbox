@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v4.0.0(20220724)"
-version_log="改强制更新为可选，防止有时候未缓存到节点导致重复更新"
+version="v4.0.2(20220727)"
+version_log="退回4.0.0,准备自建CDN"
 
 
 RED="\033[31m"
