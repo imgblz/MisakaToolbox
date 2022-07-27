@@ -13,12 +13,12 @@ wget -N --no-check-certificate https://cdn.jsdelivr.net/gh/imgblz/MisakaToolbox/
 
 ## 更新日志
 
-Ver v4.0.2(20220727) 退回4.0.0,准备自建CDN
+Ver 4.0.3(20220727-2) bt换链接了
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
     
-Ver v4.0.2(20220727) 退回4.0.0,准备自建CDN
+Ver 4.0.2(20220727) 退回4.0.0,准备自建CDN
     
 Ver 4.0.1(20220725) 发现7ed的ipv6有时候抽风了，改成了jsdelivr
     
