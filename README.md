@@ -13,10 +13,12 @@ wget -N --no-check-certificate https://cdn.jsdelivr.net/gh/imgblz/MisakaToolbox/
 
 ## 更新日志
 
-Ver 4.0.3(20220727-2) bt换链接了
+Ver 4.1.0(20220727-3) 更换为自建CDN
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+    
+Ver 4.1.0(20220727-3) 更换为自建CDN
     
 Ver 4.0.2(20220727) 退回4.0.0,准备自建CDN
     
