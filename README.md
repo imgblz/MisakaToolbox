@@ -13,10 +13,11 @@ wget -N --no-check-certificate https://ghraw.imgblz.cn/imgblz/MisakaToolbox/main
 
 ## 更新日志
 
-Ver 4.1.0(20220727-3) 更换为自建CDN
+Ver 4.1.1(20220730) 优化dd服务器的部分
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+Ver 4.1.1(20220730) 优化dd服务器的部分
     
 Ver 4.1.0(20220727-3) 更换为自建CDN
     
