@@ -434,7 +434,7 @@ menux(){
     echo -e " ${GREEN}4.${PLAIN} 性能测试"
     echo -e " ${GREEN}5.${PLAIN} 一键更换（dd）系统"
     echo -e " ${RED}9.${PLAIN} 回到欢迎页"
-    echo -e " ${RED}10.${PLAIN} 关于"
+    echo -e " ${RED}x.${PLAIN} 关于"
     echo -e " ${RED}0.${PLAIN} 退出"
     echo ""
     echo -e "${YELLOW}版本号${PLAIN}：$version"
@@ -447,8 +447,8 @@ menux(){
         4) menu4 ;;
         5) menu5 ;;
         9) menuz ;;
-        10) aboutx ;;
-	    0) exit 1 ;;
+        x) aboutx ;;
+	0) exit 1 ;;
         *) menux ;;
     esac
 }
