@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v4.1.1(20220730)"
-version_log="优化dd服务器的部分"
+version="v4.2.0(20220731)"
+version_log="添加快捷启动方式"
 
 
 RED="\033[31m"
@@ -78,6 +78,21 @@ dd_vps(){
         sudo shutdown -r now 
     else
         echo -e "请截图反馈"
+    fi
+}
+
+mt(){
+    if [[ -z $(grep "alias mt='bash /root/MisakaToolbox.sh'" /etc/profile) ]]; then
+        echo -e "正在配置快捷启动方式"
+        echo "alias mt='bash /root/MisakaToolbox.sh'" >> /etc/profile
+        echo -e "完成，是否重启完成配置？[y/n]"
+        read -p "(默认: y):" mt_reboot
+        [[ -z "$mt_reboot" ]] && mt_reboot="y"
+        if [[ "$mt_reboot" == "y" ]]; then
+            reboot
+        else
+            echo -e "您可能需要重启才能使用快捷方式"
+        fi
     fi
 }
 
@@ -298,7 +313,7 @@ bt(){
     elif [[ $SYSTEM = "Debian" ]]; then
         wget -O install.sh http://io.bt.sy/install/install-ubuntu_6.0.sh && sudo bash install.sh forum
     else
-        wget -O install.sh http://io.yu.al/install/install-ubuntu_6.0.sh && sudo bash install.sh forum
+        wget -O install.sh http://io.bt.sy/install/install-ubuntu_6.0.sh && sudo bash install.sh forum
     fi
 }
 
@@ -367,6 +382,7 @@ serverstatus() {
 
 menu() {
     clear
+    mt
     echo "检查更新..."
     wget -q -O /tmp/version.txt https://ghraw.imgblz.cn/imgblz/MisakaToolbox/main/version.txt
     if [ "$(cat /tmp/version.txt)" != "$version" ]; then
@@ -418,6 +434,8 @@ menuz(){
         fi
     fi
     echo ""
+    echo "*您可以在命令行直接输入 mt 快速启动脚本*"
+    echo ""
     read -rp "---按下enter运行脚本---" menuInput
     case $menuInput in
         *) menux ;;
@@ -432,7 +450,7 @@ menux(){
     echo -e " ${GREEN}2.${PLAIN} 面板相关"
     echo -e " ${GREEN}3.${PLAIN} 节点相关"
     echo -e " ${GREEN}4.${PLAIN} 性能测试"
-    echo -e " ${GREEN}5.${PLAIN} 一键更换（dd）系统"
+    echo -e " ${GREEN}5.${PLAIN} 一键更换系统"
     echo -e " ${RED}9.${PLAIN} 回到欢迎页"
     echo -e " ${RED}x.${PLAIN} 关于"
     echo -e " ${RED}0.${PLAIN} 退出"
@@ -448,7 +466,7 @@ menux(){
         5) menu5 ;;
         9) menuz ;;
         x) aboutx ;;
-	0) exit 1 ;;
+	    0) exit 1 ;;
         *) menux ;;
     esac
 }
