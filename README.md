@@ -15,10 +15,12 @@ wget -N --no-check-certificate https://ghraw.imgblz.cn/imgblz/MisakaToolbox/main
 
 ## 更新日志
 
-Ver 4.1.1(20220730) 优化dd服务器的部分
+Ver 4.2.0(20220731) 添加快捷启动方式
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+    
+Ver 4.2.0(20220731) 添加快捷启动方式
     
 Ver 4.1.1(20220730) 优化dd服务器的部分
     
