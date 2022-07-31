@@ -10,7 +10,7 @@
 wget -N --no-check-certificate https://ghraw.imgblz.cn/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh
 ```
 
-第一次运行以后，可用快捷方式 `bash MisakaToolbox.sh`启动
+第一次运行以后，可用快捷方式 `bash MisakaToolbox.sh`启动，或者更快捷的方式`mt`
 
 
 ## 更新日志
