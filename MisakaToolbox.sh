@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v4.2.0(20220731)"
-version_log="添加快捷启动方式"
+version="v4.2.1(20220813)"
+version_log="添加warp-go（fscarmen的一键脚本）"
 
 
 RED="\033[31m"
@@ -261,7 +261,8 @@ warp_script(){
     echo "1. fscarmen"
     echo "2. fscarmen-docker"
     echo "3. fscarmen warp解锁奈飞流媒体脚本"
-    echo "4. P3TERX"
+    echo "4. fscarmen warp-go (CoiaPrant)"
+    echo "5. P3TERX"
     echo "0. 返回主菜单"
     echo ""
     read -rp "请输入选项:" warpNumberInput
@@ -269,7 +270,8 @@ warp_script(){
         1) wget -N https://ghraw.imgblz.cn/fscarmen/warp/main/menu.sh && bash menu.sh ;;
         2) wget -N https://ghraw.imgblz.cn/fscarmen/warp/main/docker.sh && bash docker.sh ;;
         3) bash <(curl -sSL https://ghraw.imgblz.cn/fscarmen/warp_unlock/main/unlock.sh) ;;
-        4) bash <(curl -fsSL https://ghraw.imgblz.cn/P3TERX/warp.sh/main/warp.sh) menu ;;
+	4) wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && bash warp-go.sh ;;
+        5) bash <(curl -fsSL https://ghraw.imgblz.cn/P3TERX/warp.sh/main/warp.sh) menu ;;
         0) menux ;;
         *) warp_script ;;
     esac
