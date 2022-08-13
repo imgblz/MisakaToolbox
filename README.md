@@ -2,7 +2,7 @@
 
 实际上这个就是一堆脚本的合集
 
-20220813 预添加 https://gitlab.com/ProjectWARP/warp-go 这个项目
+20220813 预添加 https://gitlab.com/ProjectWARP/warp-go 这个项目（明天录取出来，祝好运）
 
 20220801 好消息有人滥用！准备换成gh-proxy限制下
 
