@@ -4,7 +4,7 @@
 
 
 
-20220813 发现大佬已经支持了，直接用
+20220813 发现大佬已经支持warp-go了，直接用
 
 20220801 好消息有人滥用！准备换成gh-proxy限制下
 
@@ -21,10 +21,12 @@ wget -N --no-check-certificate https://ghraw.imgblz.cn/imgblz/MisakaToolbox/main
 
 ## 更新日志
 
-Ver 4.2.0(20220731) 添加快捷启动方式
+Ver 4.2.1(20220813) 添加warp-go（fscarmen的一键脚本）
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+    
+Ver 4.2.1(20220813) 添加warp-go（fscarmen的一键脚本）
     
 Ver 4.2.0(20220731) 添加快捷启动方式
     
