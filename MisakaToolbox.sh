@@ -270,7 +270,7 @@ warp_script(){
         1) wget -N https://ghraw.imgblz.cn/fscarmen/warp/main/menu.sh && bash menu.sh ;;
         2) wget -N https://ghraw.imgblz.cn/fscarmen/warp/main/docker.sh && bash docker.sh ;;
         3) bash <(curl -sSL https://ghraw.imgblz.cn/fscarmen/warp_unlock/main/unlock.sh) ;;
-	4) wget -N https://raw.githubusercontent.com/fscarmen/warp/main/warp-go.sh && bash warp-go.sh ;;
+	4) wget -N https://ghraw.imgblz.cn/fscarmen/warp/main/warp-go.sh && bash warp-go.sh ;;
         5) bash <(curl -fsSL https://ghraw.imgblz.cn/P3TERX/warp.sh/main/warp.sh) menu ;;
         0) menux ;;
         *) warp_script ;;
