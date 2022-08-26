@@ -2,7 +2,7 @@
 
 实际上这个就是一堆脚本的合集
 
-20220823 计划增加更新https://www.kernel.org 的内核以及https://xanmod.org 的内核
+20220823 计划增加更新https://www.kernel.org 的内核以及https://xanmod.org 的内核（最近开学事情有点多，没时间QWQ）
 
 20220813 发现大佬已经支持warp-go了，直接用
 
