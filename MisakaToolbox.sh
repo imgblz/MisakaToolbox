@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v4.2.1(20220813)"
-version_log="添加warp-go（fscarmen的一键脚本）"
+version="v4.2.2(20220830)"
+version_log="添加Trojan Panel（更新内核咕咕咕），顺便解决了眼瞎导致的小问题"
 
 
 RED="\033[31m"
@@ -603,7 +603,7 @@ menu2d(){
     echo ""
     echo -e " ${GREEN}1.${PLAIN} Trojan面板"
     echo -e " ${GREEN}2.${PLAIN} x-ui面板"
-    echo -e " ${GREEN}3.${PLAIN} 青龙面板"
+    echo -e " ${GREEN}3.${PLAIN} Trojan Panel"
     echo " -------------"
     echo -e " ${GREEN}0.${PLAIN} 返回上一页"
     echo ""
@@ -611,6 +611,7 @@ menu2d(){
     case $menuInput in
         1) source <(curl -sL https://git.io/trojan-install) ;;
         2) xui ;;
+        3) source <(curl -L https://ghraw.imgblz.cn/trojanpanel/install-script/main/install_script.sh) ;;
         0) menu2 ;;
         *) menu2d ;;
     esac
@@ -662,7 +663,7 @@ menu3(){
         6) wget --no-check-certificate -O shadowsocks-all.sh https://ghraw.imgblz.cn/teddysun/shadowsocks_install/master/shadowsocks-all.sh && chmod +x shadowsocks-all.sh && ./shadowsocks-all.sh 2>&1 | tee shadowsocks-all.log ;;
         7) mkdir /home/mtproxy && cd /home/mtproxy && curl -s -o mtproxy.sh https://ghraw.imgblz.cn/sunpma/mtp/master/mtproxy.sh && chmod +x mtproxy.sh && bash mtproxy.sh && bash mtproxy.sh start ;;
         8) wget https://git.io/wireguard -O wireguard-install.sh && bash wireguard-install.sh ;;
-        8) bash -c "$(curl -fsSL https://ghraw.imgblz.cn/shidahuilang/SS-SSR-TG-iptables-bt/main/sh/clash_install.sh)" ;;
+        9) bash -c "$(curl -fsSL https://ghraw.imgblz.cn/shidahuilang/SS-SSR-TG-iptables-bt/main/sh/clash_install.sh)" ;;
         0) menux ;;
         *) menu3 ;;
     esac
