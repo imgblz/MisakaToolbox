@@ -2,6 +2,19 @@
 
 实际上这个就是一堆脚本的合集
 
+## 使用方法
+1. 用SSH客户端连接上VPS，输入以下命令（若不是root用户请先`sudo -i`提权）
+```shell
+wget -N --no-check-certificate https://ghraw.imgblz.cn/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh
+```
+
+第一次运行以后，可用快捷方式 `bash MisakaToolbox.sh`启动，或者更快捷的方式`mt`
+
+## 画饼日志
+
+<details>
+    <summary>点击展开</summary>
+
 20220823 计划增加更新https://www.kernel.org 的内核以及https://xanmod.org 的内核（最近开学事情有点多，没时间QWQ）
 
 20220813 发现大佬已经支持warp-go了，直接用
@@ -10,13 +23,7 @@
 
 20220730 ~~好消息，服务器被打了...~~  已恢复
 
-## 使用方法
-1. 用SSH客户端连接上VPS，输入以下命令（若不是root用户请先`sudo -i`提权）
-```shell
-wget -N --no-check-certificate https://ghraw.imgblz.cn/imgblz/MisakaToolbox/main/MisakaToolbox.sh && bash MisakaToolbox.sh
-```
-
-第一次运行以后，可用快捷方式 `bash MisakaToolbox.sh`启动，或者更快捷的方式`mt`
+</details>
 
 
 ## 更新日志
