@@ -103,7 +103,7 @@ aboutx(){
     echo -e "维护这个东东只是因为我懒！！！"
     echo -e "github反代项目都可以用，只要大家不搞事情，我就继续放这用"
     echo -e "CDN由Cloudflare提供，国内由自建反向代理提供"
-    echo -e "我就是一个准大专生，啥都不会，脚本能用就行"
+    echo -e "我就是一个大专生，还是一个学机电一体化的，啥都不会，脚本能用就行"
     echo " -------------"
     echo -e " ${GREEN}1.${PLAIN} 返回主菜单"
     echo -e " ${GREEN}2.${PLAIN} 更新到Beat版(仅供开发测试用)"
