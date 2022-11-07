@@ -1,7 +1,7 @@
 #!/bin/bash
 
-version="v4.2.2(20220830)"
-version_log="添加Trojan Panel（更新内核咕咕咕），顺便解决了眼瞎导致的小问题"
+version="v4.2.3(20221107)"
+version_log="填大饼"
 
 
 RED="\033[31m"
@@ -344,6 +344,18 @@ xui() {
     esac
 }
 
+ubuntukernel(){
+    apt install git -y
+    echo "已安装Git组件" 
+    git clone https://github.com/mtompkins/linux-kernel-utilities.git
+    echo "已克隆linux-kernel-utilities仓库"
+    cd linux-kernel-utilities
+    chmod 750 *.sh
+    echo "已修改权限，即将运行脚本，将下载最新内核进行编译安装"
+    echo "非常慢，看你服务器咋样了"
+    ./compile_linux_kernel.sh --latest
+}
+
 qlpanel(){
     [[ -z $(docker -v 2>/dev/null) ]] && curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
     read -rp "请输入将要安装的青龙面板容器名称：" qlPanelName
@@ -453,6 +465,7 @@ menux(){
     echo -e " ${GREEN}3.${PLAIN} 节点相关"
     echo -e " ${GREEN}4.${PLAIN} 性能测试"
     echo -e " ${GREEN}5.${PLAIN} 一键更换系统"
+    echo -e " ${GREEN}6.${PLAIN} 一键更换内核"
     echo -e " ${RED}9.${PLAIN} 回到欢迎页"
     echo -e " ${RED}x.${PLAIN} 关于"
     echo -e " ${RED}0.${PLAIN} 退出"
@@ -466,6 +479,7 @@ menux(){
         3) menu3 ;;
         4) menu4 ;;
         5) menu5 ;;
+        6) menu6 ;;
         9) menuz ;;
         x) aboutx ;;
 	    0) exit 1 ;;
@@ -710,6 +724,20 @@ menu5(){
         0) menux ;;
         *) menu5 ;;
     esac
+}
+
+menu6(){
+    clear
+    about
+    echo ""
+    echo -e " ${GREEN}1.${PLAIN} ubuntu系统更新内核（最新源码编译）"
+    echo -e " ${GREEN}0.${PLAIN} 返回主菜单"
+    echo ""
+    read -rp " 请输入选项:" menuInput
+    case $menuInput in
+        1) ubuntukernel ;;
+        0) menux ;;
+        *) menu6 ;;
 }
 
 menu

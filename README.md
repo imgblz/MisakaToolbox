@@ -32,10 +32,11 @@ wget -N --no-check-certificate https://ghraw.imgblz.cn/imgblz/MisakaToolbox/main
 
 ## 更新日志
 
-Ver 4.2.2(20220830) 添加Trojan Panel（更新内核咕咕咕），顺便解决了眼瞎导致的小问题
+Ver 4.2.3(20221107) 填大饼
 
 <details>
     <summary>历史更新记录（点击展开）</summary>
+Ver 4.2.3(20221107) 填大饼
 
 Ver 4.2.2(20220830) 添加Trojan Panel（更新内核咕咕咕），顺便解决了眼瞎导致的小问题
     
